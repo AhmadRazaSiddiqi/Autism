@@ -1,0 +1,189 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f9fafb;
+}
+
+/* Container */
+.talent-details-container {
+  min-height: 100vh;
+  background-color: #f9fafb;
+}
+
+/* Main Content */
+.main-content {
+  max-width: 920px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 2rem;
+}
+
+.breadcrumb .Talent {
+  color: #6D028E;
+}
+
+.breadcrumb .TalentDetails {
+  color: #6b7280;
+}
+
+.detail-role{
+    color: #6D028E;
+}
+
+/* Job Title */
+.job-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+
+/* Job Description */
+.job-description {
+  font-size: 1rem;
+  color: #4b5563;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+/* Section Headings */
+h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+
+/* Requirements Section */
+.requirements-section {
+  margin-bottom: 2rem;
+}
+
+.requirements-section ul {
+  list-style: disc;
+  margin-left: 1.5rem;
+}
+
+.requirements-section li {
+  font-size: 0.95rem;
+  color: #4b5563;
+  margin-bottom: 0.5rem;
+}
+
+/* Client and Talent Info Sections (Shared Styles) */
+
+
+.detail-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: white;
+  padding-bottom: 1rem;
+  border-radius: 0.75rem;
+}
+
+.detail-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.detail-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+
+
+/* Review Section */
+.review-section {
+  margin-top: 2rem;
+}
+
+.review-card {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid #e5e7eb;
+}
+
+.reviewer-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.reviewer-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.reviewer-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.review-date {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.review-rating {
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Stars (reused from clientDetails.css) */
+.stars-container {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.star {
+  font-size: 1.25rem;
+  color: #d1d5db;
+}
+
+.star.filled {
+  color: #6D028E;
+}
+
+.review-comment {
+  color: #4b5563;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 0.75rem;
+  }
+
+  .job-title {
+    font-size: 1.5rem;
+  }
+
+  h2 {
+    font-size: 1.125rem;
+  }
+}

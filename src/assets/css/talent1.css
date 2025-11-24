@@ -1,0 +1,101 @@
+@import url("./clients.css");
+
+.talent-container {
+  background-color: #f7fafc;
+  min-height: 100vh;
+}
+
+.talent-head{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-content:space-between;
+}
+
+.talent-title {
+  font-weight: 700;
+  font-size: 35px;
+  margin-bottom: 1.5rem;
+}
+
+.add-talent{
+  background-color: #E8EDF5;
+  min-width: 84px;
+  border-radius: 8px;
+  max-width: 480px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  padding-inline: 1rem;
+  margin-bottom: 1rem;
+}
+
+.talent-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.talent-table th {
+  text-align: left;
+  padding: 1rem;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.talent-table td {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.talent-table tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+.status-badge.active {
+  background-color: #efedf6;
+  display: inline-block;
+  border-radius: 8px;
+  text-align: center;
+  max-width: 100px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+}
+
+.status-badge.inactive {
+  background-color: #f8ede8;
+  display: inline-block;
+  border-radius: 8px;
+  text-align: center;
+  max-width: 100px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.talent-name {
+  color: #6d028e;
+}
+
+.talent-date {
+  color: #6d028e;
+}
+
+.action-button button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6d028e;
+  font-weight: 700;
+  padding-block: 1.2rem ;
+}
+
+
+.talent-skill{
+
+    color: #6d028e;
+}

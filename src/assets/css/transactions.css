@@ -1,0 +1,106 @@
+.main-content{
+    border: none;
+}
+.breadcrumb {
+  font-size: 14px;
+  margin-bottom: 1rem;
+  color: #6d028e;
+}
+
+.clients-title{
+    margin-bottom: 0.5rem;
+}
+.breadcrumb a {
+  text-decoration: none;
+  color: #6d028e;
+  font-size: 16px;
+}
+
+.description{
+  font-size: 15px;
+  color: #1e0325;
+  margin-top: 0;
+}
+
+.table-container{
+    border: #ffffff;
+    margin: 0;
+    margin-top: 0.5rem;
+}
+.section{
+  padding: 1rem 1rem 1rem 0;
+  margin-left: 0;
+}
+
+.section-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+}
+
+.label {
+  font-weight: 500;
+  color: #374151;
+}
+
+.value {
+  color: #111827;
+}
+
+.status-list {
+  list-style: none;
+  padding: 0;
+}
+
+.status-history-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 6px 0;
+  font-size: 15px;
+}
+
+.status-circle {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid gray;
+}
+
+.status-circle {
+  border-color: gray;
+  
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding: 1rem 1.5rem;
+}
+
+.refund-btn,
+.dispute-btn {
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 15px;
+  border: none;
+}
+
+.refund-btn {
+  background-color: #e5eaf3;
+  color: #1f2937;
+}
+
+.dispute-btn {
+  background-color: #fce8e6;
+  color: #b91c1c;
+}

@@ -1,0 +1,48 @@
+.empinfo-img {
+  width: 100% !important;  /* Square dimensions */
+  height: 180px !important;
+  object-fit: cover;        /* Ensures image covers the square area */
+  object-position: center;  /* Centers the image */
+  border-radius: 4px;       /* Optional: Adds rounded corners */
+}
+.star::before {
+  content: "★";
+  color: #ccc;
+  font-size: 20px;
+  margin-right: 2px;
+}
+
+.star.filled::before {
+  color: gold;
+}
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: capitalize;
+  display: inline-block;
+}
+
+/* Light colors for statuses */
+.status-badge.pending {
+  background-color: #fff3cd; /* light yellow */
+  color: #856404;
+}
+
+.status-badge.approved {
+  background-color: #d4edda; /* light green */
+  color: #155724;
+}
+
+.status-badge.rejected {
+  background-color: #f8d7da; /* light red */
+  color: #721c24;
+}
+
+.status-badge.blocked {
+  background-color: #e2e3e5; /* light gray */
+  color: #383d41;
+}
+
+

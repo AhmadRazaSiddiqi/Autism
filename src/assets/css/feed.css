@@ -1,0 +1,82 @@
+/* ✅ Scrollable Table Starts */
+.table-container {
+  background-color: #f7fafc;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.75rem;
+  overflow-x: auto;
+  width: 100%;
+}
+
+.feed-table {
+  width: 100%;
+  min-width: 800px;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+/* ✅ Scrollable Table Ends */
+
+.feed-table th {
+  text-align: left;
+  padding: 1rem;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.feed-table td {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  color: #1f2937;
+}
+
+.feed-table tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+.feed-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.status-cell {
+  padding: 12px;
+}
+
+.status-badge.active {
+  background-color: #efedf6;
+  display: flex;
+  justify-content: center;
+  border-radius: 8px;
+  padding: 0.3rem 1.5rem;
+  margin-inline: 1rem;
+}
+
+.status-badge.inactive {
+  background-color: #f8ede8;
+  display: flex;
+  justify-content: center;
+  border-radius: 8px;
+  padding: 0.3rem 1.5rem;
+  margin-inline: 1rem;
+}
+
+.client-name {
+  font-size: 0.9rem !important;
+  font-weight: 500 !important;
+}
+
+.client-email {
+  font-size: 1rem;
+  color: #6d028e;
+}
+
+.client-date {
+  color: #6d028e;
+}
+
+.profile_photo img {
+  height: 35px;
+  width: 35px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+  overflow: hidden;
+}

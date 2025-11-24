@@ -1,0 +1,11 @@
+body{
+    margin:0;
+    line-height: normal;
+}
+
+:root{
+ --orange:#FE5120;
+ --yellow:#FFC756;
+ --light-purple:#9E31E3;
+ --dark-purple:#6D028E
+}

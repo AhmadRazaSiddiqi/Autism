@@ -1,0 +1,105 @@
+@import "../../global.css";
+.login-container{
+  min-height: 100vh;
+  background-color:  white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.login-card{
+    max-width: 28rem;
+    width: 100%;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0,1.5);
+}
+
+.logo-section{
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+
+.welcome-title{
+    font-weight: 600;
+    font-size:clamp(1.25rem,5vw,1.5rem);
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.form-container{
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.form-group{
+     display: flex;
+    flex-direction: column;
+    
+}
+
+.form-label{
+    display: block;
+    font-weight: 500;
+    color: #374151;
+    padding-bottom: 8px;
+}
+
+.form-input{
+    border: none;
+    width: 100%;
+    min-height: 48px;
+    appearance: none;
+    background-color:#6D028E0D;
+     padding: clamp(0.625rem, 3vw, 0.55rem);
+    border-radius: 0.375rem;
+    margin-bottom: 3px;
+}
+
+.checkbox-container{
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+}
+
+.checkbox{
+    border-radius: 1px;
+    margin-right: 0.5rem;
+    color: #CFDBE8;
+    height: clamp(1rem, 3vw, 1rem);
+    width: clamp(1rem, 3vw, 1.125rem);
+    margin-left: 0.4rem;
+    border-color: #CFDBE8;
+    border: 2px solid #CFDBE8 ;
+    
+}
+
+.checkbox-label{
+    cursor: pointer;
+    line-height: 1.4rem;
+}
+
+
+.forgot-link{
+    color: var(--dark-purple);
+    cursor: pointer;
+}
+
+.login-button{
+    width: 100%;
+    background-color: var(--dark-purple);
+    border-radius: 5px;
+    margin-top: 1rem;
+    height: 45px;
+    color: #f9fafb;
+}
+

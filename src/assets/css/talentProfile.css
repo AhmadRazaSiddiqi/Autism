@@ -1,0 +1,470 @@
+/** Reset **/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-family: "Segoe UI", sans-serif;
+  background-color: #f9fafb;
+}
+
+/** Container **/
+.talent-profile-container {
+  min-height: 100vh;
+  background-color: #f9fafb;
+  color: #1f2937;
+}
+
+/** Main Content **/
+.talent-profile-content {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+/** Breadcrumb **/
+.breadcrumb {
+  font-size: 0.875rem;
+  margin-bottom: 2rem;
+}
+
+/** Header **/
+.talent-header {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.talent-profile-info {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.talent-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid #e5e7eb;
+  overflow: hidden;
+}
+
+
+
+.talent-details {
+  gap: 0;
+}
+
+.talent-name {
+  color: #000;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.skills {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.skill {
+  background-color: #e8edf5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  width: 100px;
+  line-height: 1.8rem;
+}
+
+.talent-title,
+.talent-joinedDate {
+  font-size: 1rem;
+  color: #6d028e;
+  margin: 0;
+  font-weight: 400;
+}
+
+/** Report Button **/
+
+.report-button {
+  background-color: #fcefe9;
+  color: #1f2937;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 450px;
+  max-width: 100%;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+/* pORTFOLIO SECTION */
+
+.portfolio-title {
+  padding-top: 2rem;
+}
+.portfolio-section {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.arrow {
+  font-size: 2rem;
+  margin: 1rem;
+}
+.Slider img {
+  max-height: 1000px;
+  width: 400px;
+  height: px;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+  margin: 0 auto;
+  padding: 1rem;
+  border-radius: 10%;
+}
+
+.Slider {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.report-button:hover {
+  background-color: #fae2dc;
+}
+
+/** Tabs **/
+.tab-navigation {
+  border-bottom: 2px solid #e5e7eb;
+  margin-bottom: 2rem;
+  overflow-x: auto;
+}
+
+.tab-button {
+  background: none;
+  border: none;
+  padding: 1rem 0;
+  margin-right: 2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #6b7280;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.tab-button.active {
+  color: #6d028e;
+  border-bottom-color: #6d028e;
+}
+
+/** About Section **/
+.about-section {
+  margin-bottom: 2rem;
+}
+
+.profile-about {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+/** Reviews Section **/
+.reviews-section {
+  margin-top: 2rem;
+}
+
+.reviews-section h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+/** Rating Summary **/
+.rating-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.rating-score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.score {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.total-reviews {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+/** Stars **/
+.stars-container {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.star {
+  font-size: 1.25rem;
+  color: #d1d5db;
+}
+
+.star.filled {
+  color: #d4dbe3;
+}
+
+/** Rating Breakdown **/
+.rating-breakdown {
+  flex: 1;
+  max-width: 340px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.rating-bar-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.rating-number {
+  font-size: 0.875rem;
+  color: #6b7280;
+  width: 12px;
+}
+
+.rating-bar {
+  flex: 1;
+  height: 8px;
+  background-color: #e5e7eb;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.rating-fill {
+  height: 100%;
+  background-color: #d4dbe3;
+  transition: width 0.3s ease;
+}
+
+.rating-percentage {
+  font-size: 0.875rem;
+  color: #6d028e;
+  width: 30px;
+  text-align: right;
+}
+
+/** Reviews List **/
+.reviews-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.review-item {
+  background-color: white;
+  border-radius: 0.75rem;
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.reviewer-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.reviewer-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.reviewer-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.review-date {
+  font-size: 0.75rem;
+  color: #6d028e;
+}
+
+.review-rating {
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.review-comment {
+  color: #4b5563;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+.review-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.like-button,
+.dislike-button {
+  background: none;
+  border: none;
+  color: #6d028e;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: color 0.2s;
+}
+
+.like-button:hover {
+  color: #059669;
+}
+
+.dislike-button:hover {
+  color: #dc2626;
+}
+
+.verification {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.5rem ;
+}
+
+.block,
+.verify {
+  background-color: #e8edf5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  width: 100px;
+  line-height: 1.8rem;
+}
+
+/** Responsive **/
+@media (max-width: 768px) {
+  .profile-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .rating-summary {
+    flex-direction: column;
+  }
+
+  .tab-navigation {
+    overflow-x: auto;
+  }
+
+  .pagination-numbers {
+    gap: 0.5rem;
+  }
+
+  .talent-profile-content {
+    padding: 1rem;
+  }
+
+  .report-button {
+    width: 100%;
+  }
+}
+
+/** Booking History Section **/
+.booking-history {
+  background: white;
+  width: 100%;
+  border-radius: 1rem;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.section-heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+}
+
+.booking-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.booking-table th,
+.booking-table td {
+  text-align: left;
+  padding: 1rem;
+  font-size: 0.95rem;
+}
+
+.booking-table th {
+  background-color: #f9fafb;
+  color: #6b7280;
+  font-weight: 600;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.booking-table td {
+  border-bottom: 1px solid #f3f4f6;
+  color: #374151;
+}
+
+.booking-table tr:last-child td {
+  border-bottom: none;
+}
+
+.booking-table .link {
+  color: #6d028e;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.booking-table .link:hover {
+  color: #4b026d;
+}
+
+/** Responsive **/
+@media (max-width: 768px) {
+  .booking-table th,
+  .booking-table td {
+    padding: 0.75rem;
+    font-size: 0.875rem;
+  }
+
+  .section-heading {
+    font-size: 1.25rem;
+  }
+}

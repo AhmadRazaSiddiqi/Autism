@@ -1,0 +1,111 @@
+@import url("./clients.css");
+
+.payments-container {
+  background-color: #f7fafc;
+  min-height: 100vh;
+}
+
+.payments-head {
+  align-items: center;
+  justify-content: space-between;
+}
+
+.payments-title {
+  font-weight: 700;
+  font-size: 35px;
+  margin-bottom: 1rem;
+}
+
+.payments-description {
+  margin-bottom: 1.5rem;
+}
+
+.payments-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* ✅ Unified padding for alignment */
+
+.payments-table th {
+  font-weight: 500;
+}
+.payments-table th,
+.payments-table td {
+  padding: 1rem 1rem 1rem 0;
+  text-align: left;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.payments-table th:first-child,
+.payments-table td:first-child {
+  padding-left: 1.5rem;
+}
+/* Hover effect */
+.payments-table tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+/* Status Badges */
+.status-badge.paid {
+  background-color: #efedf6;
+}
+
+.status-badge.failed {
+  background-color: #8e023526;
+}
+
+.status-badge.pending {
+  background-color: #f8ede8;
+}
+
+/* Common badge styling */
+.status-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  text-align: center;
+  max-width: 100px;
+  height: 32px;
+}
+
+/* Utility styles */
+.talent-name,
+.talent-date,
+.talent-skill {
+  color: #6d028e;
+}
+
+.action-button button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6d028e;
+  font-weight: 700;
+  padding-block: 1.2rem;
+}
+
+.export-button {
+  display: flex;
+  gap: 1rem;
+  margin-right: 0 ;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.export-csv {
+  background-color: #ebedf2;
+  height: 40px;
+  border-radius: 16px;
+  padding-inline: 16px;
+  cursor: pointer;
+}
+
+.export-pdf {
+  background-color: #f8ede8;
+  height: 40px;
+  border-radius: 16px;
+  padding-inline: 16px;
+  cursor: pointer;
+}

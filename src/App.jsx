@@ -4,14 +4,13 @@ import "./App.css";
 import Home from "./components/Auth/Home";
 import Login from "./components/Auth/Login";
 import NavBar from "./components/Auth/common/NavBar";
-import Clients from "./components/admin/Clients";
-import ClientDetails from "./components/admin/ClientDetails";
+import Users from "./components/admin/Users.jsx";
 import FeedDetails from "./components/admin/feeddetails";
-import Talents from "./components/admin/Talents";
+import Quizzes from "./components/admin/Quizzes.jsx";
 import TalentDetails from "./components/admin/TalentDetails";
 import BookingDetails from "./components/admin/bookingdetails";
 import Talent1 from "./components/admin/Talent1";
-import TalentProfile from "./components/admin/TalentProfile";
+import UserProfile from "./components/admin/UserProfile.jsx";
 import Payments from "./components/admin/Payments";
 import ContactUs from "./components/admin/ContactUs";
 import Skill from "./components/admin/Skill";
@@ -22,9 +21,10 @@ import Transactions from "./components/admin/Transactions";
 
 
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
-import Feed from "./components/admin/Feed";
+import Resources from "./components/admin/Resources.jsx";
 import Tasks from "./components/admin/Tasks";
 import Dashboard from "./components/admin/Dashboard.jsx";
+import UserDetails from "./components/admin/UserDetails.jsx";
 
 function App() {
   const router = createBrowserRouter([
@@ -49,26 +49,26 @@ function App() {
       element: <Login />,
     },
     {
-      path: "/feed",
+      path: "/resources",
       element: (
         <ProtectedRoute>
-          <Feed />
+          <Resources />
         </ProtectedRoute>
       ),
     },
     {
-      path: "/clients",
+      path: "/users",
       element: (
         <ProtectedRoute>
-          <Clients />
+          <Users />
         </ProtectedRoute>
       ),
     },
     {
-      path: "/clientDetails",
+      path: "/userDetails",
       element: (
         <ProtectedRoute>
-          <ClientDetails />
+          <UserDetails />
         </ProtectedRoute>
       ),
     },
@@ -90,10 +90,10 @@ function App() {
     },
     
     {
-      path: "/talents",
+      path: "/quizzes",
       element: (
         <ProtectedRoute>
-          <Talents />
+          <Quizzes />
         </ProtectedRoute>
       ),
     },
@@ -117,7 +117,7 @@ function App() {
       path: "/talentProfile",
       element: (
         <ProtectedRoute>
-          <TalentProfile />
+          <UserProfile />
         </ProtectedRoute>
       ),
     },

@@ -39,13 +39,13 @@ function NavBar() {
             <Link to="/dashboard" className="menu-link">
               Dashboard
             </Link>
-            <Link to="/clients" className="menu-link">
+            <Link to="/users" className="menu-link">
               Users
             </Link>
-            <Link to="/talents" className="menu-link">
+            <Link to="/quizzes" className="menu-link">
               Quizzes
             </Link>
-            <Link to="/feed" className="menu-link">
+            <Link to="/resources" className="menu-link">
               Resources
             </Link>
             <Link to="/contact-us" className="menu-link">

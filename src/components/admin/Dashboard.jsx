@@ -58,9 +58,8 @@ function Dashboard() {
           </div>
         </div>
 
-        {/* Content grid */}
         <div className="content-grid">
-          {/* Recent activity */}
+
           <h2 className="card-title">Recent Activity</h2>
           <div className="card">
             <div className="card-content">

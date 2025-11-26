@@ -15,7 +15,7 @@ import { formatHumanDate } from "../../helpers/Helper";
 import Swal from "sweetalert2";
 import ApiService from "../../services/ApiService";
 
-function TalentProfile() {
+function UserProfile() {
   const location = useLocation();
   const [selectedMedia, setSelectedMedia] = useState(null);
   const queryParams = new URLSearchParams(location.search);
@@ -593,4 +593,4 @@ function TalentProfile() {
     </div>
   );
 }
-export default TalentProfile;
+export default UserProfile;

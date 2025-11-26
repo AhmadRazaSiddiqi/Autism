@@ -8,7 +8,7 @@ import viewIcon from "../../../public/view.svg";
 import { formatHumanDate } from "../../helpers/Helper";
 import ApiService from "../../services/ApiService";
 
-function Feed() {
+function Resources() {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const [sortDate, setSortDate] = useState("desc");
@@ -38,7 +38,9 @@ function Feed() {
   const filteredClients = clients
     .filter((client) => {
       const search = searchTerm.toLowerCase();
-      const formattedDate = formatHumanDate(client?.createdAt || "").toLowerCase();
+      const formattedDate = formatHumanDate(
+        client?.createdAt || ""
+      ).toLowerCase();
 
       return (
         (client?.title || "").toLowerCase().includes(search) ||
@@ -48,7 +50,9 @@ function Feed() {
         formattedDate.includes(search) // ✅ Date search
       );
     })
-    .filter((client) => statusFilter === "All" || client?.status === statusFilter)
+    .filter(
+      (client) => statusFilter === "All" || client?.status === statusFilter
+    )
     .sort((a, b) =>
       sortDate === "desc"
         ? new Date(b?.createdAt || 0) - new Date(a?.createdAt || 0)
@@ -59,7 +63,10 @@ function Feed() {
   const itemsPerPage = 10;
   const totalPages = Math.ceil(filteredClients.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedClients = filteredClients.slice(startIndex, startIndex + itemsPerPage);
+  const paginatedClients = filteredClients.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
 
   const handleView = (feed_id, feed) => {
     navigate(`/feeddetails?id=${feed_id}`, { state: { feed } });
@@ -71,7 +78,7 @@ function Feed() {
     <div className="clients-container">
       <NavBar />
       <div className="main-content">
-        <div className="clients-title">Feeds</div>
+        <div className="clients-title">Resources</div>
 
         {/* 🔎 Search + Filters */}
         <div className="control-section">
@@ -136,7 +143,7 @@ function Feed() {
               {!loading && paginatedClients.length === 0 && (
                 <tr>
                   <td colSpan="6" style={{ textAlign: "center" }}>
-                    No Feeds found
+                    Unable to load Resources
                   </td>
                 </tr>
               )}
@@ -166,7 +173,9 @@ function Feed() {
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
               <button
                 key={page}
-                className={`pagination-number ${currentPage === page ? "active" : ""}`}
+                className={`pagination-number ${
+                  currentPage === page ? "active" : ""
+                }`}
                 onClick={() => setCurrentPage(page)}
               >
                 {page}
@@ -176,7 +185,9 @@ function Feed() {
 
           <button
             className="pagination-btn next-btn"
-            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+            onClick={() =>
+              setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+            }
             disabled={currentPage === totalPages}
           >
             &#62;
@@ -187,4 +198,4 @@ function Feed() {
   );
 }
 
-export default Feed;
+export default Resources;

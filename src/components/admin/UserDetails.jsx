@@ -9,7 +9,7 @@ import ApiService from "../../services/ApiService";
 import { formatHumanDate } from "../../helpers/Helper";
 import Swal from "sweetalert2";
 
-function ClientDetails() {
+function UserDetails() {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const userId = queryParams.get("id");
@@ -163,7 +163,7 @@ const handleStatusUpdate = async (newStatus) => {
       <div className="main-content">
         {/* Breadcrumb */}
         <div>
-          <span className="breadcrumb">Clients / Client Details</span>
+          <span className="breadcrumb">Users / User Details</span>
         </div>
 
         {/* Header */}
@@ -348,7 +348,7 @@ const handleStatusUpdate = async (newStatus) => {
         </div>
 
         {/* Booking History Section */}
-        <h2 className="section-heading">Booking History</h2>
+        <h2 className="section-heading">Quiz History</h2>
         <div className="booking-history">
           <table className="booking-table">
             <thead>
@@ -394,4 +394,4 @@ const handleStatusUpdate = async (newStatus) => {
   );
 }
 
-export default ClientDetails;
+export default UserDetails;

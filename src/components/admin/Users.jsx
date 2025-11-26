@@ -10,7 +10,7 @@ import ReStore from "../../../public/reset-14415.svg";
 import { formatHumanDate } from "../../helpers/Helper";
 import ApiService from "../../services/ApiService"; // Make sure your ApiService is correctly imported
 
-function Clients() {
+function Users() {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const [sortDate, setSortDate] = useState("Date");
@@ -68,8 +68,8 @@ function Clients() {
     startIndex + itemsPerPage
   );
 
-  const handleView = (client_id, profile_photo) => {
-    navigate(`/clientdetails?id=${client_id}`, { state: { profile_photo } });
+  const handleView = (user_id, profile_photo) => {
+    navigate(`/userdetails?id=${user_id}`, { state: { profile_photo } });
   };
 
   const handleDelete = async (id) => {
@@ -106,7 +106,7 @@ function Clients() {
     <div className="clients-container">
       <NavBar />
       <div className="main-content">
-        <div className="clients-title">Clients</div>
+        <div className="clients-title">Users</div>
 
         <div className="control-section">
           <div className="search-box">
@@ -153,10 +153,10 @@ function Clients() {
             (<table className="clients-table">
               <thead>
                 <tr>
-                  <th>Client</th>
+                  <th>User</th>
                   <th>Phone</th>
                   <th>Email</th>
-                  <th>Status</th>
+                  <th>Quiz Taken</th>
                   <th>Date</th>
                   <th>Action</th>
                 </tr>
@@ -256,4 +256,4 @@ function Clients() {
   );
 }
 
-export default Clients;
+export default Users;

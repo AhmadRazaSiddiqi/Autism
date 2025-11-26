@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { formatHumanDate } from "../../helpers/Helper";
 import Swal from "sweetalert2";
 
-const Talents = () => {
+const Quizzes = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
@@ -98,7 +98,7 @@ const Talents = () => {
     <div className="talents-container">
       <NavBar />
       <div className="main-content">
-        <div className="talents-title">Talents</div>
+        <div className="talents-title">Quizzes</div>
 
         <div className="control-section">
           <div className="search-box">
@@ -134,8 +134,8 @@ const Talents = () => {
             <table className="talents-table">
               <thead>
                 <tr>
-                  <th>Talent Name</th>
-                  <th>Gender</th>
+                  <th>Quiz Title</th>
+                  <th>Answer</th>
                   <th>Phone</th>
                   <th>Country</th>
                   <th>Email</th>
@@ -222,4 +222,4 @@ const Talents = () => {
   );
 };
 
-export default Talents;
+export default Quizzes;

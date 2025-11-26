@@ -78,7 +78,7 @@ function TalentDetails() {
       <div className="main-content">
         {/* Breadcrumb */}
         <div className="breadcrumb">
-          <span className="Talent">Talents </span> <span className="TalentDetails">/ Talent Details</span>
+          <span className="Talent">Quizzes </span> <span className="TalentDetails">/ Quiz Details</span>
         </div>
 
         {/* Job Title */}

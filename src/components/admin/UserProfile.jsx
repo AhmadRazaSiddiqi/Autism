@@ -229,7 +229,7 @@ function UserProfile() {
         <div>
           <span className="breadcrumb">
             {" "}
-            <span style={{ color: "#6D028E" }}>Talents</span> / Talent Details
+            <span style={{ color: "#6d028e" }}>Talents</span> / Talent Details
           </span>
         </div>
 

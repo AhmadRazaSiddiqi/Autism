@@ -91,6 +91,7 @@
   border: none;
   line-height: 32px;
   box-sizing: border-box;
+  outline: none;
 }
 
 .dropdown-icon {
@@ -131,6 +132,8 @@
   padding: 1rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   color: #1f2937;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .clients-table tbody tr:hover {

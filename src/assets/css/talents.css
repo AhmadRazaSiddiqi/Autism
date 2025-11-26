@@ -22,7 +22,7 @@
 }
 
 .talents-table td {
-  padding: 1rem;
+  padding: 0.6rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
@@ -126,6 +126,7 @@
 }
 
 .filter-select {
+  outline: none;
   background-color: #e8edf5;
   border-radius: 12px;
   font-size: 0.9rem;

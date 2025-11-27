@@ -25,6 +25,7 @@ import Resources from "./components/admin/Resources.jsx";
 import Tasks from "./components/admin/Tasks";
 import Dashboard from "./components/admin/Dashboard.jsx";
 import UserDetails from "./components/admin/UserDetails.jsx";
+import QuizEditor from "./components/admin/QuizEditor.jsx";
 
 function App() {
   const router = createBrowserRouter([
@@ -32,10 +33,18 @@ function App() {
       path: "/",
       element: (
         <ProtectedRoute>
-          <Dashboard />
+          <QuizEditor />
         </ProtectedRoute>
       ),
     },
+    // {
+    //   path: "/",
+    //   element: (
+    //     <ProtectedRoute>
+    //       <Dashboard />
+    //     </ProtectedRoute>
+    //   ),
+    // },
     {
       path: "/dashboard",
       element: (

@@ -115,47 +115,47 @@ function UserDetails() {
   const handleReportUser = () => {
     console.log("HandleReportUser clicked");
   };
-const handleStatusUpdate = async (newStatus) => {
-  if (!detailsUser?.id) return;
+  const handleStatusUpdate = async (newStatus) => {
+    if (!detailsUser?.id) return;
 
-  // Show SweetAlert confirmation
-  const result = await Swal.fire({
-    title: `Are you sure you want to ${newStatus}?`,
-    text: "This action cannot be undone.",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, proceed!",
-  });
+    // Show SweetAlert confirmation
+    const result = await Swal.fire({
+      title: `Are you sure you want to ${newStatus}?`,
+      text: "This action cannot be undone.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, proceed!",
+    });
 
-  if (result.isConfirmed) {
-    try {
-      const response = await ApiService.post("admin/updateUserStatus", {
-        userId: detailsUser.id,
-        status: newStatus,
-      });
-
-      if (response.data.status) {
-        Swal.fire({
-          icon: "success",
-          title: "Updated!",
-          text: response.data.message,
+    if (result.isConfirmed) {
+      try {
+        const response = await ApiService.post("admin/updateUserStatus", {
+          userId: detailsUser.id,
+          status: newStatus,
         });
 
-        // Update local state immediately
-        setdetailsUser({ ...detailsUser, status: newStatus });
+        if (response.data.status) {
+          Swal.fire({
+            icon: "success",
+            title: "Updated!",
+            text: response.data.message,
+          });
+
+          // Update local state immediately
+          setdetailsUser({ ...detailsUser, status: newStatus });
+        }
+      } catch (error) {
+        console.error("Error updating status:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops!",
+          text: "Failed to update status",
+        });
       }
-    } catch (error) {
-      console.error("Error updating status:", error);
-      Swal.fire({
-        icon: "error",
-        title: "Oops!",
-        text: "Failed to update status",
-      });
     }
-  }
-};
+  };
 
   return (
     <div className="client-details-container">
@@ -183,16 +183,20 @@ const handleStatusUpdate = async (newStatus) => {
 
               {/* ✅ Current status display */}
               <p className="client-status">
-                Status: <span className={`status-label ${detailsUser?.status || "pending"}`}>
-                  {detailsUser?.status ? detailsUser.status.toUpperCase() : "PENDING"}
+                Status:{" "}
+                <span
+                  className={`status-label ${detailsUser?.status || "pending"}`}
+                >
+                  {detailsUser?.status
+                    ? detailsUser.status.toUpperCase()
+                    : "PENDING"}
                 </span>
               </p>
-
             </div>
           </div>
 
-          <button className="report-button" onClick={handleReportUser}>
-            Report User
+          <button className="report-button">
+           Report User
           </button>
 
           {/* ✅ Status buttons */}
@@ -237,113 +241,7 @@ const handleStatusUpdate = async (newStatus) => {
         {/* Content */}
         <div className="tab-content">
           {activeTab === "overview" && (
-            <div className="overview-content">
-              {/* About */}
-              <div className="about-section">
-                <h2 className="client-about">About</h2>
-                <p>{clientData.about}</p>
-              </div>
-
-              {/* Reviews */}
-              <div className="reviews-section">
-                <h2>Reviews</h2>
-
-                {/* Rating Summary */}
-                <div className="rating-summary">
-                  <div className="rating-score">
-                    <span className="score">{clientData.rating}</span>
-                    {renderStars(clientData.rating)}
-                    <span className="total-reviews">
-                      {clientData.totalReviews} reviews
-                    </span>
-                  </div>
-
-                  <div className="rating-breakdown">
-                    {[5, 4, 3, 2, 1].map((star) => (
-                      <div key={star}>
-                        {renderRatingBar(
-                          star,
-                          clientData.ratingBreakdown[star] || 0
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Individual Reviews */}
-                <div className="reviews-list">
-                  {detailsUser?.reviews?.length > 0 ? (
-                    detailsUser.reviews.map((review) => (
-                      <div key={review.id} className="review-item">
-                        <div className="review-header">
-                          <div className="reviewer-info">
-                            <img
-                              src={
-                                review.reviewer?.profile_photo ||
-                                "/default-avatar.png"
-                              }
-                              alt={review.reviewer?.username}
-                              className="reviewer-avatar"
-                            />
-                            <div>
-                              <h4 className="reviewer-name">
-                                {review.reviewer?.username}
-                              </h4>
-                              <span className="review-date">
-                                {review.createdAtFormatted}
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="review-rating">
-                          {renderStars(review.rating)}
-                        </div>
-
-                        <p className="review-comment">{review.comment}</p>
-
-                        <div className="review-actions">
-                          <button
-                            className={`like-button ${
-                              review.userLiked ? "active" : ""
-                            }`}
-                          >
-                            <BiLike /> {review.likesCount}
-                          </button>
-                          {review.dislikes > 0 && (
-                            <button className="dislike-button">
-                              <BiDislike /> {review.dislikes}
-                            </button>
-                          )}
-                        </div>
-                      </div>
-                    ))
-                  ) : (
-                    <p>No reviews available</p>
-                  )}
-                </div>
-
-                {/* Pagination */}
-                <div
-                  className="pagination-container"
-                  style={
-                    detailsUser?.reviews == []
-                      ? { display: "none" }
-                      : { display: "flex" }
-                  }
-                >
-                  <button className="pagination-btn prev-btn">&#60;</button>
-                  <div className="pagination-numbers">
-                    <button className="pagination-number active">1</button>
-                    <button className="pagination-number">2</button>
-                    <button className="pagination-number">3</button>
-                    <span className="pagination-dots">...</span>
-                    <button className="pagination-number">10</button>
-                  </div>
-                  <button className="pagination-btn next-btn">&#62;</button>
-                </div>
-              </div>
-            </div>
+            <div className="overview-content">{/* About */}</div>
           )}
         </div>
 

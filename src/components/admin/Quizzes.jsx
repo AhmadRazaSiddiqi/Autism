@@ -125,6 +125,7 @@ const Quizzes = () => {
               <option value="blocked">Blocked</option>
             </select>
           </div>
+          <button/>
         </div>
 
         <div className="table-container">
@@ -134,11 +135,9 @@ const Quizzes = () => {
             <table className="talents-table">
               <thead>
                 <tr>
-                  <th>Quiz Title</th>
-                  <th>Answer</th>
-                  <th>Phone</th>
-                  <th>Country</th>
-                  <th>Email</th>
+                  <th>Title</th>
+                  <th>Slug</th>
+                  <th>Score</th>
                   <th>Status</th>
                   <th>Posted Date</th>
                   <th style={{ color: "#6d028e" }}>Actions</th>
@@ -149,9 +148,7 @@ const Quizzes = () => {
                   <tr key={talent.id}>
                     <td>{talent.full_name}</td>
                     <td className="talents-client">{talent.gender}</td>
-                    <td className="talents-client">{talent?.user?.phone_number}</td>
                     <td className="talents-name">{talent.country}</td>
-                    <td className="talents-name">{talent?.user?.email}</td>
                     <td>
                       <div
                         className={`status-badge ${talent.status ? talent.status.toLowerCase() : ""

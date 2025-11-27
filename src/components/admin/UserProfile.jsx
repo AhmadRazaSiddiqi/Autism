@@ -262,11 +262,11 @@ function UserProfile() {
               </p>
             </div>
           </div>
-          <button className="report-button" onClick={handleReportUser}>
-            Report Talent
+          <button className="report-button">
+          Edit Question
           </button>
           <div className="status-buttons" style={{ marginTop: "10px" }}>
-            <button
+            {/* <button
               className={`status-btn approve ${detailsUser?.status === "approved" ? "active" : ""
                 }`}
               onClick={() => handleStatusUpdate("approved")}
@@ -286,7 +286,7 @@ function UserProfile() {
               onClick={() => handleStatusUpdate("blocked")}
             >
               Block
-            </button>
+            </button> */}
           </div>
         </div>
 

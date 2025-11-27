@@ -153,10 +153,10 @@ function Users() {
             (<table className="clients-table">
               <thead>
                 <tr>
-                  <th>User</th>
-                  <th>Phone</th>
+                  <th>Name</th>
                   <th>Email</th>
-                  <th>Quiz Taken</th>
+                  <th>Role</th>
+                  <th>Visibility</th>
                   <th>Date</th>
                   <th>Action</th>
                 </tr>

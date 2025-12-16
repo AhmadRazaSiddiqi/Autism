@@ -59,7 +59,9 @@ export default function Navbar() {
 
           <div className="d-flex align-items-center topnav-actions" ref={dropdownRef}>
             <button className="topnav-bell" type="button" aria-label="Notifications">
-              &#128276;
+              <span className="material-symbols-outlined topnav-bell-icon">
+                notifications
+              </span>
             </button>
             <div className="topnav-avatar-dropdown position-relative">
               <button

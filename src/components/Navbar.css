@@ -140,6 +140,11 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.topnav-bell-icon {
+  font-variation-settings: 'opsz' 24, 'wght' 500, 'FILL' 0, 'GRAD' 0;
+  font-size: 20px;
+}
+
 .topnav-bell:hover {
   transform: translateY(-1px);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);

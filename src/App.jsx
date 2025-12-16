@@ -69,6 +69,14 @@ function AppRoutes() {
         }
       />
       <Route
+        path="/quizdetails"
+        element={
+          <Layout>
+            <QuizDetails />
+          </Layout>
+        }
+      />
+      <Route
         path="/assessments"
         element={
           <Layout>

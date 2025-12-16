@@ -1,0 +1,138 @@
+.users-page {
+  min-height: calc(100vh - 60px);
+  background: #ffffff;
+  padding-block: 3rem 3.5rem;
+}
+
+.users-container {
+  max-width: 1040px;
+}
+
+.users-header {
+  margin-bottom: 1.5rem;
+}
+
+.users-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #020617;
+}
+
+.users-filters-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.users-search {
+  flex: 1 1 260px;
+}
+
+.users-search-input {
+  border-radius: 999px;
+  padding-left: 2.4rem;
+}
+
+.users-search-icon {
+  position: absolute;
+  left: 0.9rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #9ca3af;
+}
+
+.users-table-wrapper {
+  border-radius: 0.9rem;
+  overflow: hidden;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.18);
+  background: #f9fafb;
+}
+
+.users-table thead {
+  background: #f3f4f6;
+}
+
+.users-table th,
+.users-table td {
+  padding-block: 0.9rem;
+  font-size: 0.95rem;
+}
+
+.users-table tbody tr:nth-child(even) {
+  background: #f3f4fb;
+}
+
+.users-status-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 88px;
+  padding: 0.25rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.users-status-pill--active {
+  background: #eef2ff;
+  color: #4f46e5;
+}
+
+.users-status-pill--inactive {
+  background: #fff7ed;
+  color: #ea580c;
+}
+
+.users-actions {
+  display: flex;
+  gap: 0.35rem;
+  justify-content: flex-end;
+}
+
+.users-action-btn {
+  border: none;
+  background: transparent;
+  padding: 0.2rem;
+  color: #9f1239;
+}
+
+.users-action-icon {
+  font-size: 18px;
+}
+
+.users-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.users-page-btn {
+  border-radius: 999px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  color: #6b7280;
+  font-size: 0.85rem;
+}
+
+.users-page-btn--active {
+  background: #020617;
+  color: #ffffff;
+}
+
+.users-page-btn:disabled {
+  opacity: 0.4;
+}
+
+@media (max-width: 768px) {
+  .users-table-wrapper {
+    box-shadow: none;
+  }
+}
+
+

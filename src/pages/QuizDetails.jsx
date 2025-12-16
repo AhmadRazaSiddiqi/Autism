@@ -1,7 +1,10 @@
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useSearchParams } from 'react-router-dom'
 
 export default function QuizDetails() {
-  const { id } = useParams()
+  const { id: paramId } = useParams()
+  const [searchParams] = useSearchParams()
+  const queryId = searchParams.get('quizId')
+  const id = queryId || paramId || 'unknown'
 
   return (
     <div className="container py-4">

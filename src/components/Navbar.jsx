@@ -8,7 +8,6 @@ const links = [
   { label: 'Quizzes', to: '/quizzes' },
   { label: 'Assessments', to: '/assessments' },
   { label: 'Resources', to: '/resources' },
-  { label: 'Contact Us', to: '/contact-us' },
 ]
 
 export default function Navbar() {

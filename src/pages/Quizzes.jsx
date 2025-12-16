@@ -173,22 +173,21 @@ export default function Quizzes() {
             />
           </div>
 
-          <div className="quizzes-filter-chips">
-            {STATUS_FILTERS.map((label) => (
-              <button
-                key={label}
-                type="button"
-                className={`btn quizzes-chip ${
-                  statusFilter === label ? 'quizzes-chip--active' : ''
-                }`}
-                onClick={() => {
-                  setStatusFilter(label)
-                  setPage(1)
-                }}
-              >
-                {label}
-              </button>
-            ))}
+          <div>
+            <select
+              className="form-select"
+              value={statusFilter}
+              onChange={(e) => {
+                setStatusFilter(e.target.value)
+                setPage(1)
+              }}
+            >
+              {STATUS_FILTERS.map((label) => (
+                <option key={label} value={label}>
+                  {label}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
 

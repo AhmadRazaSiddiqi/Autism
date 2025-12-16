@@ -1,11 +1,11 @@
 .users-page {
   min-height: calc(100vh - 60px);
   background: #ffffff;
-  padding-block: 3rem 3.5rem;
+  padding-block: 3.25rem 3.75rem;
 }
 
 .users-container {
-  max-width: 1040px;
+  max-width: 1160px;
 }
 
 .users-header {
@@ -13,7 +13,7 @@
 }
 
 .users-title {
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 700;
   color: #020617;
 }
@@ -30,7 +30,7 @@
 }
 
 .users-search-input {
-  border-radius: 999px;
+  border-radius: 8px;
   padding-left: 2.4rem;
 }
 
@@ -56,8 +56,8 @@
 
 .users-table th,
 .users-table td {
-  padding-block: 0.9rem;
-  font-size: 0.95rem;
+  padding-block: 1rem;
+  font-size: 1rem;
 }
 
 .users-table tbody tr:nth-child(even) {
@@ -117,7 +117,7 @@
   border: none;
   background: transparent;
   color: #6b7280;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
 }
 
 .users-page-btn--active {
@@ -134,5 +134,6 @@
     box-shadow: none;
   }
 }
+
 
 

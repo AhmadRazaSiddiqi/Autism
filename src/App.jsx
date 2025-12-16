@@ -8,7 +8,6 @@ import Quizzes from './pages/Quizzes'
 import QuizDetails from './pages/QuizDetails'
 import Assessments from './pages/Assessments'
 import Resources from './pages/Resources'
-import ContactUs from './pages/ContactUs'
 import NotFound from './pages/NotFound'
 
 function Layout({ children }) {
@@ -89,14 +88,6 @@ function AppRoutes() {
         element={
           <Layout>
             <Resources />
-          </Layout>
-        }
-      />
-      <Route
-        path="/contact-us"
-        element={
-          <Layout>
-            <ContactUs />
           </Layout>
         }
       />

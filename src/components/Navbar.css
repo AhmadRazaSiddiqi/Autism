@@ -16,7 +16,7 @@
 }
 
 .topnav-container {
-  padding-inline: 1.25rem;
+  padding-inline: 2.25rem;
 }
 
 .topnav-brand {
@@ -64,7 +64,7 @@
 .topnav-links .nav-link {
   color: #0f172a;
   font-weight: 600;
-  padding-inline: 0.85rem;
+  padding-inline: 1.1rem;
   transition: color 0.2s ease, opacity 0.2s ease;
 }
 

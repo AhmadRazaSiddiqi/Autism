@@ -71,6 +71,18 @@ export default function Users() {
     setPage(p);
   };
 
+  const handleDeleteUser = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this user?")) return;
+
+    try {
+      await ApiService.deleteUser(id);
+      fetchUsers();
+    } catch (err) {
+      console.error(err);
+      alert("Failed to delete user.");
+    }
+  };
+
   return (
     <div className="users-page">
       <div className="container users-container">
@@ -202,6 +214,7 @@ export default function Users() {
                             type="button"
                             className="users-action-btn"
                             aria-label="Delete user"
+                            onClick={() => handleDeleteUser(user.id)}
                           >
                             <span className="material-symbols-outlined users-action-icon">
                               delete

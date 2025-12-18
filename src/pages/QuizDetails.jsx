@@ -1,98 +1,200 @@
-import { useState } from 'react'
-import { useParams, Link, useSearchParams } from 'react-router-dom'
-import './QuizDetails.css'
+import { useState, useEffect } from "react";
+import {
+  useParams,
+  Link,
+  useSearchParams,
+  useNavigate,
+} from "react-router-dom";
+import ApiService from "../services/ApiService";
+import { useGlobal } from "../context/GlobalContext";
+import "./QuizDetails.css";
 
 const INITIAL_QUESTIONS = [
   {
-    id: 'q1',
+    id: "q1",
     order: 1,
-    text: 'Does the child make eye contact?',
-    type: 'Multiple Choice',
-    subscale: 'Social Communication',
+    text: "Does the child make eye contact?",
+    type: "Multiple Choice",
+    subscale: "Social Communication",
   },
   {
-    id: 'q2',
+    id: "q2",
     order: 2,
-    text: 'Does the child point to show interest?',
-    type: 'Yes/No',
-    subscale: 'Social Communication',
+    text: "Does the child point to show interest?",
+    type: "Yes/No",
+    subscale: "Social Communication",
   },
   {
-    id: 'q3',
+    id: "q3",
     order: 3,
-    text: 'Does the child have repetitive movements?',
-    type: 'Scale 1–5',
-    subscale: 'Restricted/Repetitive',
+    text: "Does the child have repetitive movements?",
+    type: "Scale 1–5",
+    subscale: "Restricted/Repetitive",
   },
-]
+];
 
 const RECENT_SUBMISSIONS = [
   {
-    id: 'U1045',
-    date: '2024-01-25 09:45 AM',
+    id: "U1045",
+    date: "2024-01-25 09:45 AM",
     score: 85,
-    status: 'Completed',
+    status: "Completed",
   },
   {
-    id: 'U1089',
-    date: '2024-01-24 03:20 PM',
+    id: "U1089",
+    date: "2024-01-24 03:20 PM",
     score: 65,
-    status: 'Completed',
+    status: "Completed",
   },
-]
+];
 
 const ACTIVITY_BARS = [
-  40, 52, 38, 61, 47, 70, 55, 63, 49, 68, 57, 72,
-  51, 60, 44, 66, 58, 73, 62, 69, 53, 64, 59, 71,
-]
+  40, 52, 38, 61, 47, 70, 55, 63, 49, 68, 57, 72, 51, 60, 44, 66, 58, 73, 62,
+  69, 53, 64, 59, 71,
+];
 
 export default function QuizDetails() {
-  const { id: paramId } = useParams()
-  const [searchParams] = useSearchParams()
-  const queryId = searchParams.get('quizId')
-  const id = queryId || paramId || 'early-childhood-screening'
+  const { id: paramId } = useParams();
+  const [searchParams] = useSearchParams();
+  const queryId = searchParams.get("quizId");
+  const id = queryId || paramId;
 
-  const [questions, setQuestions] = useState(INITIAL_QUESTIONS)
-  const [showAddModal, setShowAddModal] = useState(false)
-  const [newQuestionText, setNewQuestionText] = useState('')
-  const [newQuestionType, setNewQuestionType] = useState('Multiple Choice')
-  const [newQuestionSubscale, setNewQuestionSubscale] = useState('Social Communication')
+  const { isLoading, isError, errorMessage } = useGlobal();
+  const [quiz, setQuiz] = useState(null);
+
+  const [questions, setQuestions] = useState(INITIAL_QUESTIONS);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [newQuestionText, setNewQuestionText] = useState("");
+  const [newQuestionType, setNewQuestionType] = useState("Multiple Choice");
+  const [newQuestionSubscale, setNewQuestionSubscale] = useState(
+    "Social Communication"
+  );
+
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editTitle, setEditTitle] = useState("");
+  const [editDescription, setEditDescription] = useState("");
+
+  const handleEditQuiz = () => {
+    if (!quiz) return;
+    setEditTitle(quiz.title || "");
+    setEditDescription(quiz.description || "");
+    setShowEditModal(true);
+  };
+
+  const saveEditQuiz = async () => {
+    try {
+      await ApiService.updateQuiz(id, {
+        title: editTitle,
+        description: editDescription,
+        isActive: quiz.isActive,
+      });
+      setShowEditModal(false);
+      fetchQuizDetails();
+    } catch (err) {
+      console.error(err);
+      alert("Failed to update quiz.");
+    }
+  };
+
+  useEffect(() => {
+    if (id) {
+      fetchQuizDetails();
+    }
+  }, [id]);
+
+  const fetchQuizDetails = async () => {
+    try {
+      const response = await ApiService.getQuizDetails(id);
+      const data = response.data;
+      setQuiz(data.quiz || data);
+
+      // If questions are included in the response, use them
+      if (data.questions && Array.isArray(data.questions)) {
+        setQuestions(data.questions);
+      }
+    } catch (err) {
+      console.error(err);
+      // Global context handles error
+    }
+  };
+
+  const navigate = useNavigate();
+
+  const handleDeleteQuiz = async () => {
+    if (!window.confirm("Are you sure you want to delete this quiz?")) return;
+
+    try {
+      await ApiService.deleteQuiz(id);
+      navigate("/quizzes");
+    } catch (err) {
+      console.error(err);
+      alert("Failed to delete quiz.");
+    }
+  };
+
+  const handleToggleStatus = async () => {
+    if (!quiz) return;
+    const newStatus = !quiz.isActive;
+    if (
+      !window.confirm(
+        `Are you sure you want to ${
+          newStatus ? "activate" : "deactivate"
+        } this quiz?`
+      )
+    )
+      return;
+
+    try {
+      await ApiService.updateQuiz(id, { isActive: newStatus });
+      fetchQuizDetails();
+    } catch (err) {
+      console.error(err);
+      alert("Failed to update status.");
+    }
+  };
 
   const handleAddQuestion = () => {
-    const text = newQuestionText.trim()
-    if (!text) return
+    const text = newQuestionText.trim();
+    if (!text) return;
 
-    const nextOrder = questions.length + 1
+    const nextOrder = questions.length + 1;
     const newQuestion = {
       id: `q-${Date.now()}`,
       order: nextOrder,
       text,
       type: newQuestionType,
       subscale: newQuestionSubscale,
-    }
+    };
 
-    setQuestions((prev) => [...prev, newQuestion])
-    setShowAddModal(false)
-    setNewQuestionText('')
-    setNewQuestionType('Multiple Choice')
-    setNewQuestionSubscale('Social Communication')
-  }
+    setQuestions((prev) => [...prev, newQuestion]);
+    setShowAddModal(false);
+    setNewQuestionText("");
+    setNewQuestionType("Multiple Choice");
+    setNewQuestionSubscale("Social Communication");
+  };
 
   const handleCloseModal = () => {
-    setShowAddModal(false)
-    setNewQuestionText('')
-    setNewQuestionType('Multiple Choice')
-    setNewQuestionSubscale('Social Communication')
-  }
+    setShowAddModal(false);
+    setNewQuestionText("");
+    setNewQuestionType("Multiple Choice");
+    setNewQuestionSubscale("Social Communication");
+  };
+
+  if (isLoading)
+    return <div className="p-5 text-center">Loading quiz details...</div>;
+  if (isError)
+    return <div className="p-5 text-center text-danger">{errorMessage}</div>;
+  if (!quiz && !isLoading)
+    return <div className="p-5 text-center">Quiz not found</div>;
 
   return (
     <div className="quizdetails-page">
       <div className="container quizdetails-container">
         <header className="quizdetails-header">
           <div>
-            <h1 className="quizdetails-title">Early Childhood Autism Screening</h1>
+            <h1 className="quizdetails-title">{quiz.title}</h1>
             <p className="quizdetails-subtitle">
-              Standardized tool for early signs detection.
+              {quiz.description || "No description provided"}
             </p>
           </div>
           <Link to="/quizzes" className="btn btn-outline-secondary btn-sm">
@@ -108,37 +210,55 @@ export default function QuizDetails() {
               <dl className="quizdetails-meta-grid">
                 <div>
                   <dt>Description</dt>
-                  <dd>Standardized tool for early signs detection.</dd>
+                  <dd>{quiz.description || "-"}</dd>
                 </div>
                 <div>
                   <dt>Slug</dt>
                   <dd>
-                    <span className="quizdetails-pill">
-                      {id || 'early-childhood-screening'}
-                    </span>
+                    <span className="quizdetails-pill">{quiz.slug || "-"}</span>
                   </dd>
                 </div>
                 <div>
                   <dt>Max Score</dt>
-                  <dd>100</dd>
+                  <dd>{quiz.maxScore || 0}</dd>
                 </div>
                 <div>
                   <dt>Status</dt>
                   <dd>
-                    <span className="quizdetails-status-dot" /> Active
+                    <span
+                      className={`quizdetails-status-dot ${
+                        quiz.isActive ? "" : "bg-secondary"
+                      }`}
+                      style={{
+                        backgroundColor: quiz.isActive ? "#10b981" : "#6b7280",
+                      }} // quick fallback style
+                    />
+                    {quiz.isActive ? " Active" : " Inactive"}
                   </dd>
                 </div>
                 <div>
                   <dt>Created At</dt>
-                  <dd>2023-08-15 10:30 AM</dd>
+                  <dd>
+                    {quiz.createdAt
+                      ? new Date(quiz.createdAt).toLocaleString()
+                      : "-"}
+                  </dd>
                 </div>
                 <div>
                   <dt>Updated At</dt>
-                  <dd>2024-01-20 02:15 PM</dd>
+                  <dd>
+                    {quiz.updatedAt
+                      ? new Date(quiz.updatedAt).toLocaleString()
+                      : "-"}
+                  </dd>
                 </div>
               </dl>
 
-              <button type="button" className="btn btn-outline-primary btn-sm mt-3">
+              <button
+                type="button"
+                className="btn btn-outline-primary btn-sm mt-3"
+                onClick={handleEditQuiz}
+              >
                 Edit Quiz
               </button>
             </div>
@@ -147,7 +267,9 @@ export default function QuizDetails() {
           <div className="card quizdetails-card quizdetails-card--performance">
             <div className="card-body">
               <div className="d-flex justify-content-between align-items-start mb-3">
-                <h2 className="quizdetails-card-title mb-0">Performance Overview</h2>
+                <h2 className="quizdetails-card-title mb-0">
+                  Performance Overview
+                </h2>
                 <span className="quizdetails-card-caption">
                   Recent Activity (Last 30 Days)
                 </span>
@@ -238,7 +360,9 @@ export default function QuizDetails() {
 
         <section className="quizdetails-section">
           <div className="quizdetails-section-header">
-            <h2 className="quizdetails-section-title">Recent Assessment Submissions</h2>
+            <h2 className="quizdetails-section-title">
+              Recent Assessment Submissions
+            </h2>
           </div>
 
           <div className="quizdetails-table-wrapper">
@@ -283,10 +407,18 @@ export default function QuizDetails() {
             <button type="button" className="btn btn-outline-secondary btn-sm">
               Export Data
             </button>
-            <button type="button" className="btn btn-outline-danger btn-sm">
-              Deactivate Quiz
+            <button
+              type="button"
+              className="btn btn-outline-danger btn-sm"
+              onClick={handleToggleStatus}
+            >
+              {quiz?.isActive ? "Deactivate Quiz" : "Activate Quiz"}
             </button>
-            <button type="button" className="btn btn-danger btn-sm">
+            <button
+              type="button"
+              className="btn btn-danger btn-sm"
+              onClick={handleDeleteQuiz}
+            >
               Delete Quiz
             </button>
           </div>
@@ -356,7 +488,47 @@ export default function QuizDetails() {
           </div>
         </div>
       )}
+      {showEditModal && (
+        <div className="quizdetails-modal-backdrop">
+          <div className="card quizdetails-modal">
+            <h2 className="quizdetails-modal-title">Edit Quiz</h2>
+            <div className="mb-3">
+              <label className="form-label">Title</label>
+              <input
+                type="text"
+                className="form-control"
+                value={editTitle}
+                onChange={(e) => setEditTitle(e.target.value)}
+              />
+            </div>
+            <div className="mb-3">
+              <label className="form-label">Description</label>
+              <textarea
+                className="form-control"
+                rows="3"
+                value={editDescription}
+                onChange={(e) => setEditDescription(e.target.value)}
+              />
+            </div>
+            <div className="quizdetails-modal-actions">
+              <button
+                type="button"
+                className="btn btn-outline-secondary btn-sm"
+                onClick={() => setShowEditModal(false)}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                className="btn btn-primary btn-sm"
+                onClick={saveEditQuiz}
+              >
+                Save Changes
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
-  )
+  );
 }
-

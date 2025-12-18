@@ -77,11 +77,24 @@ export default function Quizzes() {
     setPage(p);
   };
 
-  const handleCreateQuiz = () => {
+  const [creating, setCreating] = useState(false);
+
+  const handleCreateQuiz = async () => {
     const title = newTitle.trim();
     if (!title) return;
-    setShowModal(false);
-    setNewTitle("");
+
+    try {
+      setCreating(true);
+      await ApiService.createQuiz({ title });
+      setShowModal(false);
+      setNewTitle("");
+      fetchQuizzes();
+    } catch (err) {
+      console.error(err);
+      alert("Failed to create quiz.");
+    } finally {
+      setCreating(false);
+    }
   };
 
   return (
@@ -279,8 +292,9 @@ export default function Quizzes() {
                 type="button"
                 className="btn btn-primary btn-sm"
                 onClick={handleCreateQuiz}
+                disabled={creating}
               >
-                Create quiz
+                {creating ? "Creating..." : "Create quiz"}
               </button>
             </div>
           </div>

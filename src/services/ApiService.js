@@ -48,8 +48,34 @@ class ApiService {
     return this.api.get("admin/users");
   }
 
-  get(path, params = {}) {
-    return this.api.get(path, { params });
+  // ✅ Get Quiz Details
+  getQuizDetails(id) {
+    return this.api.get(`quizzes/quiz/${id}`);
+  }
+
+  // ✅ Get Quiz Details
+  getQuizDetails(id) {
+    return this.api.get(`quizzes/quiz/${id}`);
+  }
+
+  // ✅ Create Quiz
+  createQuiz(data) {
+    return this.api.post("quizzes", data);
+  }
+
+  // ✅ Update Quiz
+  updateQuiz(id, data) {
+    return this.api.put(`quizzes/quiz/${id}`, data);
+  }
+
+  // ✅ Delete Quiz
+  deleteQuiz(id) {
+    return this.api.delete(`quizzes/quiz/${id}`);
+  }
+
+  // ✅ Delete User
+  deleteUser(id) {
+    return this.api.delete(`admin/users/${id}`);
   }
 
   post(path, data) {

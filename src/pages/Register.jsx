@@ -2,9 +2,10 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ApiService from "../services/ApiService";
 
-export default function Login() {
+export default function Register() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
+    name: "",
     email: "",
     password: "",
   });
@@ -25,13 +26,16 @@ export default function Login() {
     setLoading(true);
 
     try {
-      await ApiService.login(formData);
+      await ApiService.register(formData);
+      // Depending on behavior, maybe redirect to login or dashboard
+      // Usually after register, if token is returned (which ApiService handles), go to dashboard
+      // Postman "Register" -> seems to return same structure as Login?
+      // ApiService.register sets token. So dashboard.
       navigate("/dashboard");
     } catch (err) {
       console.error(err);
       setError(
-        err.response?.data?.message ||
-          "Login failed. Please check your credentials."
+        err.response?.data?.message || "Registration failed. Please try again."
       );
     } finally {
       setLoading(false);
@@ -45,9 +49,9 @@ export default function Login() {
           <div className="col-sm-11 col-md-7 col-lg-5 col-xl-4">
             <div className="card shadow-sm border-0">
               <div className="card-body p-4 p-md-5">
-                <h1 className="h3 mb-3 text-center">Welcome back</h1>
+                <h1 className="h3 mb-3 text-center">Create account</h1>
                 <p className="text-muted text-center mb-4 fs-6">
-                  Sign in to continue to the dashboard.
+                  Sign up to get started.
                 </p>
 
                 {error && (
@@ -57,6 +61,18 @@ export default function Login() {
                 )}
 
                 <form className="vstack gap-3" onSubmit={handleSubmit}>
+                  <div>
+                    <label className="form-label">Full Name</label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      className="form-control form-control-lg"
+                      placeholder="John Doe"
+                      required
+                    />
+                  </div>
                   <div>
                     <label className="form-label">Email</label>
                     <input
@@ -79,16 +95,32 @@ export default function Login() {
                       className="form-control form-control-lg"
                       placeholder="••••••••"
                       required
+                      minLength={6}
                     />
+                    <div className="form-text">
+                      Must be at least 6 characters.
+                    </div>
                   </div>
                   <button
                     type="submit"
                     className="btn btn-primary btn-lg w-100 mt-2"
                     disabled={loading}
                   >
-                    {loading ? "Signing in..." : "Sign in"}
+                    {loading ? "Creating account..." : "Create account"}
                   </button>
                 </form>
+
+                <div className="text-center mt-4">
+                  <p className="mb-0 text-muted">
+                    Already have an account?{" "}
+                    <Link
+                      to="/login"
+                      className="text-decoration-none fw-semibold"
+                    >
+                      Sign in
+                    </Link>
+                  </p>
+                </div>
               </div>
             </div>
           </div>

@@ -1,12 +1,13 @@
 // src/services/ApiService.js
 import axios from "axios";
 
-const API_URL = import.meta.env.VITE_API_BASE_URL || "https://api.eversols.com/api/";
+const API_URL =
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:3000/api/";
 
 class ApiService {
   constructor() {
     this.api = axios.create({
-      baseURL: "https://app.talinoo.com/api",
+      baseURL: API_URL,
       headers: {
         "Content-Type": "application/json",
       },
@@ -22,14 +23,29 @@ class ApiService {
     });
   }
 
-  // ✅ Example login
+  // ✅ Login
   async login(data) {
-    const response = await this.api.post("admin/login", data);
+    const response = await this.api.post("auth/login", data);
     if (response?.data?.token) {
       localStorage.setItem("authToken", response.data.token);
       localStorage.setItem("user", JSON.stringify(response.data.user));
     }
     return response;
+  }
+
+  // ✅ Get Quizzes
+  getQuizzes() {
+    return this.api.get("quizzes");
+  }
+
+  // ✅ Get Dashboard Stats
+  getDashboardStats() {
+    return this.api.get("admin/dashboard");
+  }
+
+  // ✅ Get Users
+  getUsers() {
+    return this.api.get("admin/users");
   }
 
   get(path, params = {}) {

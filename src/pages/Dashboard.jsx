@@ -1,35 +1,58 @@
-import './Dashboard.css'
+import { useState, useEffect } from "react";
+import ApiService from "../services/ApiService";
+import "./Dashboard.css";
 
 const recentActivity = [
   {
     activity: "Quiz 'Intro to Talents' created",
-    date: '2023-09-20',
-    user: 'Alex Harper',
+    date: "2023-09-20",
+    user: "Alex Harper",
   },
   {
     activity: "User 'Emily Carter' invited",
-    date: '2023-09-19',
-    user: 'Jordan Bennett',
+    date: "2023-09-19",
+    user: "Jordan Bennett",
   },
   {
     activity: "Assessment 'Cognitive Skills' added",
-    date: '2023-09-18',
-    user: 'Taylor Hayes',
+    date: "2023-09-18",
+    user: "Taylor Hayes",
   },
-]
+];
 
 const systemAlerts = [
   {
-    title: 'Payment processing delay',
-    date: '2023-09-21',
+    title: "Payment processing delay",
+    date: "2023-09-21",
   },
   {
-    title: 'New quiz submissions pending review',
-    date: '2023-09-20',
+    title: "New quiz submissions pending review",
+    date: "2023-09-20",
   },
-]
+];
 
 export default function Dashboard() {
+  const [stats, setStats] = useState({
+    usersCount: 0,
+    quizzesCount: 0,
+    assessmentsCount: 0,
+  });
+
+  useEffect(() => {
+    fetchStats();
+  }, []);
+
+  const fetchStats = async () => {
+    try {
+      const response = await ApiService.getDashboardStats();
+      if (response && response.data) {
+        setStats(response.data);
+      }
+    } catch (err) {
+      console.error("Failed to fetch dashboard stats", err);
+    }
+  };
+
   return (
     <div className="dashboard-page">
       <div className="container dashboard-container">
@@ -40,17 +63,19 @@ export default function Dashboard() {
         <section className="dashboard-metrics-row">
           <div className="dashboard-metric-card dashboard-metric-card--soft">
             <p className="dashboard-metric-label">Total Quizzes</p>
-            <p className="dashboard-metric-value">1,234</p>
+            <p className="dashboard-metric-value">{stats?.quizzesCount || 0}</p>
           </div>
 
           <div className="dashboard-metric-card dashboard-metric-card--highlight">
             <p className="dashboard-metric-label">Total Users</p>
-            <p className="dashboard-metric-value">5,678</p>
+            <p className="dashboard-metric-value">{stats?.usersCount || 0}</p>
           </div>
 
           <div className="dashboard-metric-card dashboard-metric-card--soft">
             <p className="dashboard-metric-label">Total Assessments</p>
-            <p className="dashboard-metric-value">9,012</p>
+            <p className="dashboard-metric-value">
+              {stats?.assessmentsCount || 0}
+            </p>
           </div>
         </section>
 
@@ -98,6 +123,5 @@ export default function Dashboard() {
         </section>
       </div>
     </div>
-  )
+  );
 }
-

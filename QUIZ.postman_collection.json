@@ -1,0 +1,559 @@
+{
+	"info": {
+		"_postman_id": "7c94f0da-8ada-4c59-b004-dc3dabf6a5f1",
+		"name": "QUIZ",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24999651",
+		"_collection_link": "https://lively-moon-448462.postman.co/workspace/New-Team-Workspace~481b98ce-4602-48fc-ac9d-0930f6c72b03/collection/24999651-7c94f0da-8ada-4c59-b004-dc3dabf6a5f1?action=share&source=collection_link&creator=24999651"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"sheraz015\",\r\n  \"email\": \"sheraz015@gmail.com\",\r\n  \"password\": \"123456\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"sheraz015@gmail.com\",\r\n  \"password\": \"123456\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Profile",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzY1Mjk5NjYzLCJleHAiOjE3NjU5MDQ0NjN9.yJcqUefIyly3hA_4hZyrrfIVcuClARxw5XASM6dDSVY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"sheraz@gmail.com\",\r\n  \"password\": \"123456\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/user/profile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"user",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Profile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzY1Mjk5NjYzLCJleHAiOjE3NjU5MDQ0NjN9.yJcqUefIyly3hA_4hZyrrfIVcuClARxw5XASM6dDSVY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "sheraz aleem",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "23",
+							"type": "text"
+						},
+						{
+							"key": "avatar",
+							"type": "file",
+							"src": "postman-cloud:///1ef9165b-8a46-4280-bf1a-5a1fee32e31b"
+						},
+						{
+							"key": "profileVisibility",
+							"value": "true",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/user/profile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"user",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User Settings",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzY1Mjk5NjYzLCJleHAiOjE3NjU5MDQ0NjN9.yJcqUefIyly3hA_4hZyrrfIVcuClARxw5XASM6dDSVY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/user/settings",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"user",
+						"settings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User Settings",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzY1Mjk5NjYzLCJleHAiOjE3NjU5MDQ0NjN9.yJcqUefIyly3hA_4hZyrrfIVcuClARxw5XASM6dDSVY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n    \"appNotifications\": true, \r\n    \"profileVisibility\": \"public\", \r\n    \"dataUsage\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/user/settings",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"user",
+						"settings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "quizzes create",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzY1Mjk5NjYzLCJleHAiOjE3NjU5MDQ0NjN9.yJcqUefIyly3hA_4hZyrrfIVcuClARxw5XASM6dDSVY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "sheraz loser",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "sheraz loser",
+							"type": "text"
+						},
+						{
+							"key": "slug",
+							"value": "sheraz loser",
+							"type": "text"
+						},
+						{
+							"key": "maxScore",
+							"value": "true",
+							"type": "text"
+						},
+						{
+							"key": "isActive",
+							"value": "true",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "postman-cloud:///1ef9165b-8a46-4280-bf1a-5a1fee32e31b"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/quizzes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"quizzes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Quizzes",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzY1OTAzNDEyLCJleHAiOjE3NjY1MDgyMTJ9.mA6aMKla3putUv6X-8puu5VzHl2Xdrz0FDCSU0NIpNw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/quizzes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"quizzes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create question",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzY1Mjk5NjYzLCJleHAiOjE3NjU5MDQ0NjN9.yJcqUefIyly3hA_4hZyrrfIVcuClARxw5XASM6dDSVY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"quiz_id\": 1,\r\n  \"question_text\": \"Does the child look at you?\",\r\n  \"question_type\": \"multiple_choice\",\r\n  \"question_order\": 1,\r\n  \"subscale\": \"Social\",\r\n  \"options\": [\r\n    {\r\n      \"option_text\": \"Never\",\r\n      \"option_value\": 0,\r\n      \"option_order\": 1\r\n    },\r\n    {\r\n      \"option_text\": \"Sometimes\",\r\n      \"option_value\": 1,\r\n      \"option_order\": 2\r\n    },\r\n    {\r\n      \"option_text\": \"Often\",\r\n      \"option_value\": 2,\r\n      \"option_order\": 3\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/question",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"question"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Quizzes Questions By Quiz ID",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzY1Mjk5NjYzLCJleHAiOjE3NjU5MDQ0NjN9.yJcqUefIyly3hA_4hZyrrfIVcuClARxw5XASM6dDSVY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/quizzes/1/questions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"quizzes",
+						"1",
+						"questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "question update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzY1Mjk5NjYzLCJleHAiOjE3NjU5MDQ0NjN9.yJcqUefIyly3hA_4hZyrrfIVcuClARxw5XASM6dDSVY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"quiz_id\": 1,\r\n  \"question_text\": \"Does the child look at you?\",\r\n  \"question_type\": \"multiple_choice\",\r\n  \"question_order\": 1,\r\n  \"subscale\": \"Social\",\r\n  \"options\": [\r\n    {\r\n      \"option_text\": \"Never\",\r\n      \"option_value\": 0,\r\n      \"option_order\": 1\r\n    },\r\n    {\r\n      \"option_text\": \"Sometimes\",\r\n      \"option_value\": 1,\r\n      \"option_order\": 2\r\n    },\r\n    {\r\n      \"option_text\": \"Often\",\r\n      \"option_value\": 2,\r\n      \"option_order\": 3\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/question/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"question",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assessment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzY1OTAzNDEyLCJleHAiOjE3NjY1MDgyMTJ9.mA6aMKla3putUv6X-8puu5VzHl2Xdrz0FDCSU0NIpNw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"quiz_id\": 1,\r\n  \"userId\": 1\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/assessments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"assessments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SUBMIT ANSWERS",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzY1OTAzNDEyLCJleHAiOjE3NjY1MDgyMTJ9.mA6aMKla3putUv6X-8puu5VzHl2Xdrz0FDCSU0NIpNw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"answers\": [\r\n    {\r\n      \"question_id\": 1,\r\n      \"option_id\": 2\r\n    },\r\n    {\r\n      \"question_id\": 3,\r\n      \"option_id\": 1\r\n    }\r\n  ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/assessments/2/answers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"assessments",
+						"2",
+						"answers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FETCH ASSESSMENT (RESULT SCREEN)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzY1OTAzNDEyLCJleHAiOjE3NjY1MDgyMTJ9.mA6aMKla3putUv6X-8puu5VzHl2Xdrz0FDCSU0NIpNw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/assessments/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"assessments",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

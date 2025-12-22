@@ -5,33 +5,10 @@ import {
   useSearchParams,
   useNavigate,
 } from "react-router-dom";
+import Swal from "sweetalert2";
 import ApiService from "../services/ApiService";
 import { useGlobal } from "../context/GlobalContext";
 import "./QuizDetails.css";
-
-const INITIAL_QUESTIONS = [
-  {
-    id: "q1",
-    order: 1,
-    text: "Does the child make eye contact?",
-    type: "Multiple Choice",
-    subscale: "Social Communication",
-  },
-  {
-    id: "q2",
-    order: 2,
-    text: "Does the child point to show interest?",
-    type: "Yes/No",
-    subscale: "Social Communication",
-  },
-  {
-    id: "q3",
-    order: 3,
-    text: "Does the child have repetitive movements?",
-    type: "Scale 1–5",
-    subscale: "Restricted/Repetitive",
-  },
-];
 
 const RECENT_SUBMISSIONS = [
   {
@@ -61,8 +38,7 @@ export default function QuizDetails() {
 
   const { isLoading, isError, errorMessage } = useGlobal();
   const [quiz, setQuiz] = useState(null);
-
-  const [questions, setQuestions] = useState(INITIAL_QUESTIONS);
+  const [questions, setQuestions] = useState([]);
   const [showAddModal, setShowAddModal] = useState(false);
   const [newQuestionText, setNewQuestionText] = useState("");
   const [newQuestionType, setNewQuestionType] = useState("Multiple Choice");
@@ -89,10 +65,18 @@ export default function QuizDetails() {
         isActive: quiz.isActive,
       });
       setShowEditModal(false);
-      fetchQuizDetails();
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "Quiz updated successfully!",
+        timer: 2000,
+        showConfirmButton: false,
+      });
     } catch (err) {
       console.error(err);
-      alert("Failed to update quiz.");
+      Swal.fire("Error", "Failed to update quiz.", "error");
+    } finally {
+      fetchQuizDetails();
     }
   };
 
@@ -105,51 +89,78 @@ export default function QuizDetails() {
   const fetchQuizDetails = async () => {
     try {
       const response = await ApiService.getQuizDetails(id);
+      const questionsResponse = await ApiService.getQuizQuestions(id);
       const data = response.data;
-      setQuiz(data.quiz || data);
-
-      // If questions are included in the response, use them
-      if (data.questions && Array.isArray(data.questions)) {
-        setQuestions(data.questions);
+      const questionsData = questionsResponse?.data?.quiz?.Questions;
+      console.log("questionsData", questionsData);
+      if (data.quiz) {
+        setQuiz(data.quiz);
+        setQuestions(questionsData || []);
+      } else if (data) {
+        setQuiz(data);
+        setQuestions(questionsData || []);
       }
     } catch (err) {
-      console.error(err);
-      // Global context handles error
+      console.error("Error fetching quiz details:", err);
     }
   };
 
   const navigate = useNavigate();
 
   const handleDeleteQuiz = async () => {
-    if (!window.confirm("Are you sure you want to delete this quiz?")) return;
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    });
 
-    try {
-      await ApiService.deleteQuiz(id);
-      navigate("/quizzes");
-    } catch (err) {
-      console.error(err);
-      alert("Failed to delete quiz.");
+    if (result.isConfirmed) {
+      try {
+        await ApiService.deleteQuiz(id);
+        Swal.fire("Deleted!", "Quiz has been deleted.", "success");
+        navigate("/quizzes");
+      } catch (err) {
+        console.error(err);
+        Swal.fire("Error", "Failed to delete quiz.", "error");
+        fetchQuizDetails();
+      }
     }
   };
 
   const handleToggleStatus = async () => {
     if (!quiz) return;
     const newStatus = !quiz.isActive;
-    if (
-      !window.confirm(
-        `Are you sure you want to ${
-          newStatus ? "activate" : "deactivate"
-        } this quiz?`
-      )
-    )
-      return;
 
-    try {
-      await ApiService.updateQuiz(id, { isActive: newStatus });
-      fetchQuizDetails();
-    } catch (err) {
-      console.error(err);
-      alert("Failed to update status.");
+    const result = await Swal.fire({
+      title: "Confirmation",
+      text: `Are you sure you want to ${
+        newStatus ? "activate" : "deactivate"
+      } this quiz?`,
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+    });
+
+    if (result.isConfirmed) {
+      try {
+        await ApiService.updateQuiz(id, { isActive: newStatus });
+        Swal.fire({
+          icon: "success",
+          title: "Status Updated",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      } catch (err) {
+        console.error(err);
+        Swal.fire("Error", "Failed to update status.", "error");
+      } finally {
+        fetchQuizDetails();
+      }
     }
   };
 
@@ -321,38 +332,51 @@ export default function QuizDetails() {
             <table className="table mb-0 quizdetails-table">
               <thead>
                 <tr>
-                  <th scope="col">Order</th>
+                  <th scope="col">Id</th>
                   <th scope="col">Question Text</th>
-                  <th scope="col">Type</th>
+                  <th scope="col">Question Type</th>
                   <th scope="col">Subscale</th>
+                  <th scope="col">QuestionOrder</th>
+                  <th scope="col">Created At</th>
                   <th scope="col" className="text-end">
                     Actions
                   </th>
                 </tr>
               </thead>
               <tbody>
-                {questions.map((q) => (
-                  <tr key={q.id}>
-                    <td>{q.order}</td>
-                    <td>{q.text}</td>
-                    <td>{q.type}</td>
-                    <td>{q.subscale}</td>
-                    <td className="text-end">
-                      <button
-                        type="button"
-                        className="btn btn-link btn-sm p-0 me-2 quizdetails-inline-link"
-                      >
-                        Edit
-                      </button>
-                      <button
-                        type="button"
-                        className="btn btn-link btn-sm p-0 quizdetails-inline-link"
-                      >
-                        View
-                      </button>
+                {console.log(questions)}
+                {questions && questions.length > 0 ? (
+                  questions.map((q) => (
+                    <tr key={q.id}>
+                      <td>{q.id}</td>
+                      <td>{q.questionText || q.text}</td>
+                      <td>{q.questionType || q.type}</td>
+                      <td>{q.subscale}</td>
+                      <td>{q.questionOrder}</td>
+                      <td>{q.createdAt}</td>
+                      <td className="text-end">
+                        <button
+                          type="button"
+                          className="btn btn-link btn-sm p-0 me-2 quizdetails-inline-link"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-link btn-sm p-0 quizdetails-inline-link"
+                        >
+                          View
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={8} className="text-center">
+                      No Questions Found
                     </td>
                   </tr>
-                ))}
+                )}
               </tbody>
             </table>
           </div>

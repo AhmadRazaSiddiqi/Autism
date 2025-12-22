@@ -1,5 +1,6 @@
 import { useMemo, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 import ApiService from "../services/ApiService";
 import { useGlobal } from "../context/GlobalContext";
 import "./Users.css";
@@ -72,14 +73,26 @@ export default function Users() {
   };
 
   const handleDeleteUser = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this user?")) return;
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    });
 
-    try {
-      await ApiService.deleteUser(id);
-      fetchUsers();
-    } catch (err) {
-      console.error(err);
-      alert("Failed to delete user.");
+    if (result.isConfirmed) {
+      try {
+        await ApiService.deleteUser(id);
+        Swal.fire("Deleted!", "User has been deleted.", "success");
+      } catch (err) {
+        console.error(err);
+        Swal.fire("Error!", "Failed to delete user.", "error");
+      } finally {
+        fetchUsers();
+      }
     }
   };
 

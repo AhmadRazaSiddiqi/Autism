@@ -1,8 +1,7 @@
 // src/services/ApiService.js
 import axios from "axios";
 
-const API_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:3000/api/";
+const API_URL = "https://quizzes.eversols.com/api/";
 
 class ApiService {
   constructor() {
@@ -43,39 +42,53 @@ class ApiService {
     return this.api.get("admin/dashboard");
   }
 
+  // ✅ Get Resources
+  getResources(params = {}) {
+    return this.api.get("resources", { params });
+  }
+
+  // ✅ Create Resource
+  createResource(data) {
+    return this.api.post("resources", data, { skipGlobalError: true });
+  }
+
   // ✅ Get Users
   getUsers() {
     return this.api.get("admin/users");
   }
 
-  // ✅ Get Quiz Details
-  getQuizDetails(id) {
-    return this.api.get(`quizzes/quiz/${id}`);
+  // ✅ Get User Details
+  getUserDetails(id) {
+    return this.api.get(`admin/users/${id}`);
   }
 
   // ✅ Get Quiz Details
   getQuizDetails(id) {
     return this.api.get(`quizzes/quiz/${id}`);
+  }
+
+  getQuizQuestions(id) {
+    return this.api.get(`quizzes/${id}/questions`);
   }
 
   // ✅ Create Quiz
   createQuiz(data) {
-    return this.api.post("quizzes", data);
+    return this.api.post("quizzes", data, { skipGlobalError: true });
   }
 
   // ✅ Update Quiz
   updateQuiz(id, data) {
-    return this.api.put(`quizzes/quiz/${id}`, data);
+    return this.api.put(`quizzes/quiz/${id}`, data, { skipGlobalError: true });
   }
 
   // ✅ Delete Quiz
   deleteQuiz(id) {
-    return this.api.delete(`quizzes/quiz/${id}`);
+    return this.api.delete(`quizzes/quiz/${id}`, { skipGlobalError: true });
   }
 
   // ✅ Delete User
   deleteUser(id) {
-    return this.api.delete(`admin/users/${id}`);
+    return this.api.delete(`admin/users/${id}`, { skipGlobalError: true });
   }
 
   post(path, data) {

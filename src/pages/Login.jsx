@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import ApiService from "../services/ApiService";
 
 export default function Login() {
@@ -9,7 +10,14 @@ export default function Login() {
     password: "",
   });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+
+  // Redirect if already logged in
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    if (token) {
+      navigate("/dashboard", { replace: true });
+    }
+  }, [navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,18 +29,25 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null);
     setLoading(true);
 
     try {
       await ApiService.login(formData);
-      navigate("/dashboard");
+      Swal.fire({
+        icon: "success",
+        title: "Login Successful",
+        text: "You have been logged in successfully.",
+      }).finally(() => {
+        // Using replace: true removes the Login page from the browser history stack
+        navigate("/dashboard", { replace: true });
+      });
     } catch (err) {
       console.error(err);
-      setError(
-        err.response?.data?.message ||
-          "Login failed. Please check your credentials."
-      );
+      Swal.fire({
+        icon: "error",
+        title: "Login Failed",
+        text: err.response?.data?.message || "Please check your credentials.",
+      });
     } finally {
       setLoading(false);
     }
@@ -49,12 +64,6 @@ export default function Login() {
                 <p className="text-muted text-center mb-4 fs-6">
                   Sign in to continue to the dashboard.
                 </p>
-
-                {error && (
-                  <div className="alert alert-danger" role="alert">
-                    {error}
-                  </div>
-                )}
 
                 <form className="vstack gap-3" onSubmit={handleSubmit}>
                   <div>

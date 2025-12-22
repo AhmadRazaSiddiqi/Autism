@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import ApiService from "../services/ApiService";
 import { useGlobal } from "../context/GlobalContext";
 import "./Quizzes.css";
@@ -88,12 +89,19 @@ export default function Quizzes() {
       await ApiService.createQuiz({ title });
       setShowModal(false);
       setNewTitle("");
-      fetchQuizzes();
+      Swal.fire({
+        icon: "success",
+        title: "Created!",
+        text: "Quiz created successfully.",
+        timer: 2000,
+        showConfirmButton: true,
+      });
     } catch (err) {
       console.error(err);
-      alert("Failed to create quiz.");
+      Swal.fire("Error", "Failed to create quiz.", "error");
     } finally {
       setCreating(false);
+      fetchQuizzes();
     }
   };
 
@@ -267,6 +275,26 @@ export default function Quizzes() {
         <div className="quizzes-modal-backdrop">
           <div className="card quizzes-modal">
             <h2 className="quizzes-modal-title">Create quiz</h2>
+            <div className="mb-3">
+              <label className="form-label">Quiz title</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Enter quiz title"
+                value={newTitle}
+                onChange={(e) => setNewTitle(e.target.value)}
+              />
+            </div>
+            <div className="mb-3">
+              <label className="form-label">Quiz description</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Enter quiz description"
+                value={newTitle}
+                onChange={(e) => setNewTitle(e.target.value)}
+              />
+            </div>
             <div className="mb-3">
               <label className="form-label">Quiz title</label>
               <input

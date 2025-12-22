@@ -1,46 +1,109 @@
-import { useParams, Link } from 'react-router-dom'
-import './UserDetails.css'
-
-const MOCK_USER = {
-  name: 'Acme Corp',
-  contactName: 'Jordan Bennett',
-  email: 'contact@acmecorp.com',
-  phone: '+1 (555) 123-4567',
-  status: 'Active',
-  joined: '2023-01-15',
-  lastActive: '2023-09-20 14:35',
-  totalQuizzes: 18,
-  totalAssessments: 245,
-  completionRate: '88%',
-}
+import { useEffect, useState } from "react";
+import { useSearchParams, Link } from "react-router-dom";
+import ApiService from "../services/ApiService";
+import "./UserDetails.css";
 
 const RECENT_ACTIVITY = [
   {
     id: 1,
-    type: 'Quiz submission',
-    label: 'Intro to Talents',
-    date: '2023-09-20',
-    status: 'Completed',
+    type: "Quiz submission",
+    label: "Intro to Talents",
+    date: "2023-09-20",
+    status: "Completed",
   },
   {
     id: 2,
-    type: 'Assessment assigned',
-    label: 'Cognitive Skills',
-    date: '2023-09-18',
-    status: 'Pending',
+    type: "Assessment assigned",
+    label: "Cognitive Skills",
+    date: "2023-09-18",
+    status: "Pending",
   },
   {
     id: 3,
-    type: 'Account updated',
-    label: 'Profile information',
-    date: '2023-09-10',
-    status: 'Success',
+    type: "Account updated",
+    label: "Profile information",
+    date: "2023-09-10",
+    status: "Success",
   },
-]
+];
 
 export default function UserDetails() {
-  const { id } = useParams()
-  const user = MOCK_USER
+  const [searchParams] = useSearchParams();
+  const userId = searchParams.get("userId");
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (userId) {
+      fetchUserDetails();
+    } else {
+      setLoading(false);
+      setError("No User ID provided");
+    }
+  }, [userId]);
+
+  const fetchUserDetails = async () => {
+    try {
+      setLoading(true);
+      const response = await ApiService.getUserDetails(userId);
+      // Attempt to handle different response structures
+      const userData = response.data?.user || response.data;
+
+      if (userData) {
+        // Map API data to component expectation
+        setUser({
+          ...userData,
+          contactName: userData.name, // Fallback as we don't know if contactName exists
+          status: userData.profileVisibility || "Active", // Mapping profileVisibility to status
+          joined: userData.createdAt
+            ? new Date(userData.createdAt).toLocaleDateString()
+            : "N/A",
+          lastActive: userData.updatedAt
+            ? new Date(userData.updatedAt).toLocaleString()
+            : "N/A", // Using updatedAt as proxy
+          // Keep these defensive if not present
+          phone: userData.phone || "N/A",
+          totalQuizzes: userData.totalQuizzes || 0,
+          totalAssessments: userData.totalAssessments || 0,
+          completionRate: userData.completionRate || "0%",
+        });
+      } else {
+        setError("User data not found");
+      }
+    } catch (err) {
+      console.error(err);
+      setError("Failed to fetch user details");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div
+        className="d-flex justify-content-center align-items-center"
+        style={{ minHeight: "80vh" }}
+      >
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !user) {
+    return (
+      <div className="container mt-5">
+        <div className="alert alert-danger" role="alert">
+          {error || "User not found"}
+        </div>
+        <Link to="/users" className="btn btn-outline-secondary">
+          Back to Users
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div className="userdetails-page">
@@ -49,7 +112,8 @@ export default function UserDetails() {
           <div>
             <h1 className="userdetails-title">{user.name}</h1>
             <p className="userdetails-subtitle">
-              Client account overview · ID <span className="userdetails-id-pill">{id}</span>
+              Client account overview · ID{" "}
+              <span className="userdetails-id-pill">{userId}</span>
             </p>
           </div>
           <div className="userdetails-header-actions">
@@ -93,9 +157,9 @@ export default function UserDetails() {
                     <dd>
                       <span
                         className={`userdetails-status-pill ${
-                          user.status === 'Active'
-                            ? 'userdetails-status-pill--active'
-                            : 'userdetails-status-pill--inactive'
+                          user.status === "Active"
+                            ? "userdetails-status-pill--active"
+                            : "userdetails-status-pill--inactive"
                         }`}
                       >
                         {user.status}
@@ -121,15 +185,23 @@ export default function UserDetails() {
               <div className="userdetails-stats-row">
                 <div>
                   <p className="userdetails-metric-label">Quizzes created</p>
-                  <p className="userdetails-metric-value">{user.totalQuizzes}</p>
+                  <p className="userdetails-metric-value">
+                    {user.totalQuizzes}
+                  </p>
                 </div>
                 <div>
-                  <p className="userdetails-metric-label">Assessments submitted</p>
-                  <p className="userdetails-metric-value">{user.totalAssessments}</p>
+                  <p className="userdetails-metric-label">
+                    Assessments submitted
+                  </p>
+                  <p className="userdetails-metric-value">
+                    {user.totalAssessments}
+                  </p>
                 </div>
                 <div>
                   <p className="userdetails-metric-label">Completion rate</p>
-                  <p className="userdetails-metric-value">{user.completionRate}</p>
+                  <p className="userdetails-metric-value">
+                    {user.completionRate}
+                  </p>
                 </div>
               </div>
               <p className="userdetails-card-caption mb-0">
@@ -169,11 +241,11 @@ export default function UserDetails() {
                     <td>
                       <span
                         className={`userdetails-status-pill ${
-                          row.status === 'Completed'
-                            ? 'userdetails-status-pill--success'
-                            : row.status === 'Pending'
-                              ? 'userdetails-status-pill--pending'
-                              : 'userdetails-status-pill--active'
+                          row.status === "Completed"
+                            ? "userdetails-status-pill--success"
+                            : row.status === "Pending"
+                            ? "userdetails-status-pill--pending"
+                            : "userdetails-status-pill--active"
                         }`}
                       >
                         {row.status}
@@ -207,6 +279,5 @@ export default function UserDetails() {
         </section>
       </div>
     </div>
-  )
+  );
 }
-

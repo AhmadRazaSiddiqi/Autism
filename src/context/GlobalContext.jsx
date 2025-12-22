@@ -28,16 +28,37 @@ export function GlobalProvider({ children }) {
 
     const errorInterceptor = (error) => {
       setLoading(false);
-      const message = error.response?.data?.message || "An unexpected error occurred.";
+
+      if (error.config?.skipGlobalError) {
+        return Promise.reject(error);
+      }
+
+      const message =
+        error.response?.data?.message || "An unexpected error occurred.";
       setError(true, message);
+
+      import("sweetalert2").then((Swal) => {
+        Swal.default.fire({
+          icon: "error",
+          title: "Error",
+          text: message,
+        });
+      });
+
       return Promise.reject(error);
     };
 
-    ApiService.bindInterceptors(requestInterceptor, responseInterceptor, errorInterceptor);
+    ApiService.bindInterceptors(
+      requestInterceptor,
+      responseInterceptor,
+      errorInterceptor
+    );
   }, []);
 
   return (
-    <GlobalContext.Provider value={{ isLoading, isError, errorMessage, setLoading, setError }}>
+    <GlobalContext.Provider
+      value={{ isLoading, isError, errorMessage, setLoading, setError }}
+    >
       {children}
     </GlobalContext.Provider>
   );

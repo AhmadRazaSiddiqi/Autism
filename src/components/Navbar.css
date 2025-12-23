@@ -123,8 +123,8 @@
 
 .topnav-signout:hover,
 .topnav-signout:focus {
-  background: rgba(14, 159, 159, 0.08);
-  color: #0e9f9f;
+  background: rgba(159, 14, 14, 0.08);
+  color: #cc384c;
 }
 
 .topnav-bell {
@@ -141,7 +141,7 @@
 }
 
 .topnav-bell-icon {
-  font-variation-settings: 'opsz' 24, 'wght' 500, 'FILL' 0, 'GRAD' 0;
+  font-variation-settings: "opsz" 24, "wght" 500, "FILL" 0, "GRAD" 0;
   font-size: 20px;
 }
 
@@ -174,4 +174,3 @@
   outline: none;
   box-shadow: none;
 }
-

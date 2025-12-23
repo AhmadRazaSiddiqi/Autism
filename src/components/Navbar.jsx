@@ -78,13 +78,14 @@ export default function Navbar() {
               </button>
               {showMenu && (
                 <div className="topnav-dropdown" role="menu">
-                  <button
-                    className="topnav-signout"
-                    type="button"
-                    onClick={handleLogout}
-                  >
-                    Sign out
-                  </button>
+                  <div className="flex items-center topnav-signout">
+                    <span className="material-symbols-outlined pt-0.5">
+                      logout
+                    </span>
+                    <button className="" type="button" onClick={handleLogout}>
+                      Sign out
+                    </button>
+                  </div>
                 </div>
               )}
             </div>

@@ -18,6 +18,10 @@ export default function Quizzes() {
   const [page, setPage] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const [newTitle, setNewTitle] = useState("");
+  const [newDescription, setNewDescription] = useState("");
+  const [newMaxScore, setNewMaxScore] = useState("");
+  const [newIsActive, setNewIsActive] = useState(true);
+  const [newImage, setNewImage] = useState(null);
 
   useEffect(() => {
     fetchQuizzes();
@@ -55,9 +59,16 @@ export default function Quizzes() {
     }
 
     if (statusFilter !== "All") {
-      const isActive = statusFilter === "Active";
-      list = list.filter((q) => q.isActive === isActive);
+      const isActiveFilter = statusFilter === "Active";
+      list = list.filter((q) => {
+        // Handle boolean, integer (1/0), or string "true"/"false"
+        const quizActive =
+          q.isActive === true || q.isActive === 1 || q.isActive === "true";
+        return quizActive === isActiveFilter;
+      });
     }
+
+    // console.log("Filtered Results:", list);
 
     list.sort((a, b) => {
       const dateA = a.createdAt || a.created_at || "0";
@@ -86,9 +97,25 @@ export default function Quizzes() {
 
     try {
       setCreating(true);
-      await ApiService.createQuiz({ title });
+
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("description", newDescription);
+      formData.append("maxScore", Number(newMaxScore));
+      formData.append("isActive", newIsActive);
+      if (newImage) {
+        formData.append("image", newImage);
+      }
+
+      await ApiService.post("quizzes", formData);
+
       setShowModal(false);
       setNewTitle("");
+      setNewDescription("");
+      setNewMaxScore("");
+      setNewIsActive(true);
+      setNewImage(null);
+      setStatusFilter("All"); // Show all to ensure the new quiz is visible
       Swal.fire({
         icon: "success",
         title: "Created!",
@@ -291,19 +318,55 @@ export default function Quizzes() {
                 type="text"
                 className="form-control"
                 placeholder="Enter quiz description"
-                value={newTitle}
-                onChange={(e) => setNewTitle(e.target.value)}
+                value={newDescription}
+                onChange={(e) => setNewDescription(e.target.value)}
               />
             </div>
             <div className="mb-3">
-              <label className="form-label">Quiz title</label>
+              <label className="form-label">Max Score</label>
               <input
-                type="text"
+                type="number"
                 className="form-control"
-                placeholder="Enter quiz title"
-                value={newTitle}
-                onChange={(e) => setNewTitle(e.target.value)}
+                placeholder="Enter max score"
+                value={newMaxScore}
+                onChange={(e) => setNewMaxScore(e.target.value)}
               />
+            </div>
+            <div className="mb-3">
+              <label className="form-label">Quiz image</label>
+              <input
+                type="file"
+                className="form-control"
+                accept="image/*"
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  if (file) {
+                    setNewImage(file);
+                  }
+                }}
+              />
+            </div>
+            <div className="mb-3">
+              <label className="form-label">Status</label>
+              <div className="d-flex align-items-center justify-content-between w-100">
+                <span
+                  className={`quizzes-toggle-label ${
+                    newIsActive
+                      ? "quizzes-toggle-label--active"
+                      : "quizzes-toggle-label--inactive"
+                  }`}
+                >
+                  {newIsActive ? "Active" : "InActive"}
+                </span>
+                <label className="quizzes-toggle-switch">
+                  <input
+                    type="checkbox"
+                    checked={newIsActive}
+                    onChange={(e) => setNewIsActive(e.target.checked)}
+                  />
+                  <span className="quizzes-toggle-slider"></span>
+                </label>
+              </div>
             </div>
             <div className="quizzes-modal-actions">
               <button
@@ -312,6 +375,10 @@ export default function Quizzes() {
                 onClick={() => {
                   setShowModal(false);
                   setNewTitle("");
+                  setNewDescription("");
+                  setNewMaxScore("");
+                  setNewIsActive(true);
+                  setNewImage(null);
                 }}
               >
                 Cancel

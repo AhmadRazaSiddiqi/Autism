@@ -120,12 +120,6 @@ export default function UserDetails() {
             <Link to="/users" className="btn btn-outline-secondary btn-sm">
               Back to users
             </Link>
-            <button type="button" className="btn btn-secondary btn-sm">
-              Impersonate
-            </button>
-            <button type="button" className="btn btn-primary btn-sm">
-              Edit details
-            </button>
           </div>
         </header>
 
@@ -267,9 +261,6 @@ export default function UserDetails() {
         </section>
 
         <section className="userdetails-section userdetails-footer-actions">
-          <button type="button" className="btn btn-outline-secondary btn-sm">
-            Reset password
-          </button>
           <button type="button" className="btn btn-secondary btn-sm">
             Pause account
           </button>

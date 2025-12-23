@@ -49,21 +49,40 @@ export default function QuizDetails() {
   const [showEditModal, setShowEditModal] = useState(false);
   const [editTitle, setEditTitle] = useState("");
   const [editDescription, setEditDescription] = useState("");
+  const [editMaxScore, setEditMaxScore] = useState("");
+  const [editIsActive, setEditIsActive] = useState(true);
+  const [editImage, setEditImage] = useState(null);
+  const [editImagePreview, setEditImagePreview] = useState(null);
 
   const handleEditQuiz = () => {
     if (!quiz) return;
     setEditTitle(quiz.title || "");
     setEditDescription(quiz.description || "");
+    setEditMaxScore(quiz.maxScore || "");
+    setEditIsActive(quiz.isActive);
+    setEditImage(null);
+    setEditImagePreview(
+      quiz.image
+        ? quiz.image.startsWith("http")
+          ? quiz.image
+          : `${import.meta.env.VITE_API_BASE_URL}${quiz.image}`
+        : null
+    );
     setShowEditModal(true);
   };
 
   const saveEditQuiz = async () => {
     try {
-      await ApiService.updateQuiz(id, {
-        title: editTitle,
-        description: editDescription,
-        isActive: quiz.isActive,
-      });
+      const formData = new FormData();
+      formData.append("title", editTitle);
+      formData.append("description", editDescription);
+      formData.append("maxScore", editMaxScore);
+      formData.append("isActive", editIsActive);
+      if (editImage) {
+        formData.append("image", editImage);
+      }
+
+      await ApiService.updateQuiz(id, formData);
       setShowEditModal(false);
       Swal.fire({
         icon: "success",
@@ -192,7 +211,16 @@ export default function QuizDetails() {
   };
 
   if (isLoading)
-    return <div className="p-5 text-center">Loading quiz details...</div>;
+    return (
+      <div
+        className="d-flex justify-content-center align-items-center"
+        style={{ minHeight: "80vh" }}
+      >
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
   if (isError)
     return <div className="p-5 text-center text-danger">{errorMessage}</div>;
   if (!quiz && !isLoading)
@@ -216,7 +244,20 @@ export default function QuizDetails() {
         <section className="quizdetails-top-row">
           <div className="card quizdetails-card quizdetails-card--details">
             <div className="card-body">
-              <h2 className="quizdetails-card-title">Quiz Details</h2>
+              <div className="d-flex justify-content-between align-items-start border-bottom pb-3 mb-3">
+                <h2 className="quizdetails-card-title mb-0">Quiz Details</h2>
+                {quiz.image && (
+                  <img
+                    src={
+                      quiz.image.startsWith("http")
+                        ? quiz.image
+                        : `${import.meta.env.VITE_API_BASE_URL}${quiz.image}`
+                    }
+                    alt={quiz.title}
+                    className="quiz-details-image"
+                  />
+                )}
+              </div>
 
               <dl className="quizdetails-meta-grid">
                 <div>
@@ -533,6 +574,73 @@ export default function QuizDetails() {
                 value={editDescription}
                 onChange={(e) => setEditDescription(e.target.value)}
               />
+            </div>
+            <div className="mb-3">
+              <label className="form-label">Max Score</label>
+              <input
+                type="number"
+                className="form-control"
+                value={editMaxScore}
+                onChange={(e) => setEditMaxScore(e.target.value)}
+              />
+            </div>
+            <div className="mb-3">
+              <label className="form-label">Quiz image</label>
+              <div className="d-flex flex-column gap-2">
+                {editImagePreview && (
+                  <div className="quiz-image-preview-container">
+                    <img
+                      src={editImagePreview}
+                      alt="Preview"
+                      className="quiz-image-preview"
+                    />
+                    <button
+                      type="button"
+                      className="quiz-image-remove-btn"
+                      onClick={() => {
+                        setEditImage(null);
+                        setEditImagePreview(null);
+                      }}
+                    >
+                      <span className="material-symbols-outlined">close</span>
+                    </button>
+                  </div>
+                )}
+                <input
+                  type="file"
+                  className="form-control"
+                  accept="image/*"
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                      setEditImage(file);
+                      setEditImagePreview(URL.createObjectURL(file));
+                    }
+                  }}
+                />
+              </div>
+            </div>
+            <div className="mb-3">
+              <label className="form-label">Status</label>
+              <div className="d-flex align-items-center justify-content-between w-100">
+                <span
+                  className={`quizzes-toggle-label ${
+                    editIsActive
+                      ? "quizzes-toggle-label--active"
+                      : "quizzes-toggle-label--inactive"
+                  }`}
+                >
+                  {editIsActive ? "Active" : "InActive"}
+                </span>
+                <label className="quizzes-toggle-switch">
+                  <input
+                    type="checkbox"
+                    checked={editIsActive}
+                    onChange={(e) => setEditIsActive(e.target.checked)}
+                  />
+                  <span className="quizzes-toggle-slider"></span>
+                </label>
+              </div>
             </div>
             <div className="quizdetails-modal-actions">
               <button

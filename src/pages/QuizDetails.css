@@ -216,6 +216,8 @@
 .quizdetails-modal {
   max-width: 520px;
   width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
   border-radius: 1rem;
   padding: 1.75rem 1.5rem 1.5rem;
 }
@@ -239,20 +241,117 @@
   }
 }
 
-@media (max-width: 768px) {
-  .quizdetails-page {
-    padding-block: 2.25rem 2.75rem;
-  }
-
-  .quizdetails-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.75rem;
-  }
+/* Toggle Switch Styles */
+.quizzes-toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 24px;
 }
 
+.quizzes-toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
 
+.quizzes-toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: 0.3s;
+  border-radius: 24px;
+}
 
+.quizzes-toggle-switch input:checked + .quizzes-toggle-slider {
+  background-color: #10b981; /* Green */
+}
 
+.quizzes-toggle-switch input:not(:checked) + .quizzes-toggle-slider {
+  background-color: #ef4444; /* Red */
+}
 
+.quizzes-toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
 
+.quizzes-toggle-switch input:checked + .quizzes-toggle-slider:before {
+  transform: translateX(24px);
+}
+
+.quizzes-toggle-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  user-select: none;
+}
+
+.quizzes-toggle-label--active {
+  color: #10b981;
+}
+
+.quizzes-toggle-label--inactive {
+  color: #ef4444;
+}
+
+/* Quiz Image Styles */
+.quiz-details-image {
+  max-width: 120px;
+  max-height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+/* Image Preview Styles (copied from Quizzes.css for consistency) */
+.quiz-image-preview-container {
+  position: relative;
+  width: 100%;
+  max-width: 200px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 0.5rem;
+}
+
+.quiz-image-preview {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.quiz-image-remove-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.quiz-image-remove-btn:hover {
+  background: rgba(255, 255, 255, 1);
+  color: #ef4444;
+}
+
+.quiz-image-remove-btn .material-symbols-outlined {
+  font-size: 16px;
+}

@@ -1,15 +1,13 @@
 // src/services/ApiService.js
 import axios from "axios";
 
-const API_URL = "https://quizzes.eversols.com/api/";
+const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 class ApiService {
   constructor() {
     this.api = axios.create({
       baseURL: API_URL,
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: {},
     });
 
     // ✅ Auto attach token from localStorage

@@ -14,7 +14,7 @@ import Users from "./pages/Users";
 import UserDetails from "./pages/UserDetails";
 import Quizzes from "./pages/Quizzes";
 import QuizDetails from "./pages/QuizDetails";
-import Assessments from "./pages/Assessments";
+// import Assessments from "./pages/Assessments";
 import Resources from "./pages/Resources";
 import NotFound from "./pages/NotFound";
 
@@ -49,7 +49,7 @@ function AppRoutes() {
         <Route path="/userdetails" element={<UserDetails />} />
         <Route path="/quizzes" element={<Quizzes />} />
         <Route path="/quizdetails" element={<QuizDetails />} />
-        <Route path="/assessments" element={<Assessments />} />
+        {/* <Route path="/assessments" element={<Assessments />} /> */}
         <Route path="/resources" element={<Resources />} />
       </Route>
 

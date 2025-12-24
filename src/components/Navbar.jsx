@@ -6,7 +6,7 @@ const links = [
   { label: "Dashboard", to: "/dashboard" },
   { label: "Users", to: "/users" },
   { label: "Quizzes", to: "/quizzes" },
-  { label: "Assessments", to: "/assessments" },
+  // { label: "Assessments", to: "/assessments" },
   { label: "Resources", to: "/resources" },
 ];
 

@@ -63,6 +63,7 @@ sketch
 
 # End of https://www.toptal.com/developers/gitignore/api/react
 .env
+!.env.local
 .gitignore
 AI_LOG.md
 maintain-log.md
